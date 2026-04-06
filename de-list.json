@@ -52,5 +52,14 @@
     "chips": ["Hình tròn", "Xe đạp đường vòng", "Trường tiểu học"],
     "phan": 5,
     "trang_thai": "san_sang"
-  }
+  },
+  {
+  "so": 8,
+  "file": "",
+  "mau": "",
+  "nhan_mau": "",
+  "chips": [],
+  "phan": 0,
+  "trang_thai": "sap_co"
+}
 ]
