@@ -9,7 +9,6 @@
         :root {
             --black:#000; --white:#fff; --yellow:#FFE500; --pink:#FF3CAC;
             --green:#00C853; --blue:#2979FF; --orange:#FF6D00; --red:#FF1744;
-            --purple:#AA00FF; --cyan:#00BCD4;
             --bg:#FFF9C4; --shadow:4px 4px 0px #000; --shadow-lg:6px 6px 0px #000;
         }
         *{box-sizing:border-box;margin:0;padding:0;font-family:'Nunito',sans-serif;}
@@ -21,150 +20,69 @@
             padding:28px 16px 48px;
         }
 
-        /* ── HEADER ── */
+        /* HEADER */
         .header{
-            max-width:960px; margin:0 auto 36px;
-            background:var(--yellow);
-            border:4px solid var(--black);
+            max-width:960px;margin:0 auto 36px;
+            background:var(--yellow);border:4px solid var(--black);
             box-shadow:8px 8px 0 var(--black);
             padding:24px 28px 20px;
-            display:flex; flex-direction:column; align-items:center; gap:14px;
-            text-align:center;
+            display:flex;flex-direction:column;align-items:center;gap:14px;text-align:center;
         }
         .header-icon{font-size:52px;line-height:1;}
-        .header h1{
-            font-size:28px; font-weight:900; text-transform:uppercase;
-            color:var(--black); letter-spacing:1px; line-height:1.3;
-        }
+        .header h1{font-size:28px;font-weight:900;text-transform:uppercase;color:var(--black);letter-spacing:1px;line-height:1.3;}
         .header h1 span{color:var(--pink);}
-        .header-meta{
-            display:flex; flex-wrap:wrap; justify-content:center; gap:10px;
-        }
-        .meta-chip{
-            background:var(--black); color:var(--white);
-            font-size:13px; font-weight:800; text-transform:uppercase;
-            padding:5px 14px; border:2px solid var(--black);
-            box-shadow:3px 3px 0 var(--pink);
-        }
+        .header-meta{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;}
+        .meta-chip{background:var(--black);color:var(--white);font-size:13px;font-weight:800;text-transform:uppercase;padding:5px 14px;border:2px solid var(--black);box-shadow:3px 3px 0 var(--pink);}
 
-        /* ── SECTION TITLE ── */
-        .section-title{
-            max-width:960px; margin:0 auto 20px;
-            display:flex; align-items:center; gap:12px;
-        }
-        .section-title h2{
-            font-size:20px; font-weight:900; text-transform:uppercase;
-            background:var(--pink); color:var(--white);
-            border:3px solid var(--black); box-shadow:var(--shadow);
-            padding:6px 18px;
-        }
+        /* STATS */
+        .stats-bar{max-width:960px;margin:0 auto 36px;display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:16px;}
+        .stat-card{background:var(--white);border:4px solid var(--black);box-shadow:var(--shadow);padding:16px 18px;text-align:center;}
+        .stat-card .stat-num{font-size:36px;font-weight:900;line-height:1;}
+        .stat-card .stat-lbl{font-size:12px;font-weight:800;text-transform:uppercase;color:#555;margin-top:4px;}
+
+        /* SECTION TITLE */
+        .section-title{max-width:960px;margin:0 auto 20px;display:flex;align-items:center;gap:12px;}
+        .section-title h2{font-size:20px;font-weight:900;text-transform:uppercase;background:var(--pink);color:var(--white);border:3px solid var(--black);box-shadow:var(--shadow);padding:6px 18px;white-space:nowrap;}
         .section-title .line{flex:1;height:4px;background:var(--black);}
 
-        /* ── GRID ── */
-        .grid{
-            max-width:960px; margin:0 auto 40px;
-            display:grid;
-            grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
-            gap:20px;
-        }
+        /* GRID */
+        .grid{max-width:960px;margin:0 auto 40px;display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:20px;}
 
-        /* ── CARD ── */
-        .card{
-            background:var(--white);
-            border:4px solid var(--black);
-            box-shadow:var(--shadow-lg);
-            display:flex; flex-direction:column;
-            text-decoration:none; color:var(--black);
-            transition:transform .15s, box-shadow .15s;
-            cursor:pointer;
-            position:relative;
-            overflow:hidden;
-        }
-        .card:hover{
-            transform:translate(-3px,-3px);
-            box-shadow:10px 10px 0 var(--black);
-        }
-        .card:active{
-            transform:translate(4px,4px);
-            box-shadow:0 0 0 var(--black);
-        }
+        /* CARD */
+        .card{background:var(--white);border:4px solid var(--black);box-shadow:var(--shadow-lg);display:flex;flex-direction:column;text-decoration:none;color:var(--black);transition:transform .15s,box-shadow .15s;position:relative;overflow:hidden;}
+        .card.clickable{cursor:pointer;}
+        .card.clickable:hover{transform:translate(-3px,-3px);box-shadow:10px 10px 0 var(--black);}
+        .card.clickable:active{transform:translate(4px,4px);box-shadow:0 0 0 var(--black);}
+        .card.soon{opacity:.65;cursor:not-allowed;}
+        .card-header{padding:18px 18px 14px;border-bottom:3px solid var(--black);display:flex;align-items:center;gap:12px;}
+        .card-num{font-size:28px;font-weight:900;line-height:1;min-width:40px;text-align:center;}
+        .card-label{font-size:11px;font-weight:900;text-transform:uppercase;color:var(--white);padding:2px 8px;display:inline-block;margin-bottom:4px;}
+        .card-title{font-size:15px;font-weight:900;line-height:1.3;}
+        .card-body{padding:14px 18px;flex:1;display:flex;flex-direction:column;gap:8px;}
+        .card-chips{display:flex;flex-wrap:wrap;gap:6px;}
+        .chip{font-size:11px;font-weight:800;text-transform:uppercase;border:2px solid var(--black);padding:3px 10px;box-shadow:2px 2px 0 #000;}
+        .card-footer{padding:12px 18px;border-top:3px solid var(--black);display:flex;align-items:center;justify-content:space-between;}
+        .go-btn{background:var(--black);color:var(--white);font-size:12px;font-weight:900;text-transform:uppercase;padding:6px 16px;border:2px solid var(--black);box-shadow:3px 3px 0 var(--yellow);}
+        .card.clickable:hover .go-btn{background:var(--yellow);color:var(--black);box-shadow:3px 3px 0 var(--black);}
+        .card-score{font-size:13px;font-weight:800;color:#555;}
 
-        .card-header{
-            padding:18px 18px 14px;
-            border-bottom:3px solid var(--black);
-            display:flex; align-items:center; gap:12px;
-        }
-        .card-num{
-            font-size:32px; font-weight:900; line-height:1;
-            min-width:44px; text-align:center;
-        }
-        .card-title-wrap{}
-        .card-label{
-            font-size:11px; font-weight:900; text-transform:uppercase;
-            color:var(--white); padding:2px 8px;
-            display:inline-block; margin-bottom:4px;
-        }
-        .card-title{font-size:15px; font-weight:900; line-height:1.3;}
+        /* SOON BADGE */
+        .soon-badge{position:absolute;top:12px;right:-28px;background:var(--orange);color:var(--white);font-size:11px;font-weight:900;text-transform:uppercase;padding:4px 36px;transform:rotate(45deg);border-top:2px solid var(--black);border-bottom:2px solid var(--black);}
 
-        .card-body{
-            padding:14px 18px; flex:1;
-            display:flex; flex-direction:column; gap:8px;
-        }
-        .card-chips{display:flex; flex-wrap:wrap; gap:6px;}
-        .chip{
-            font-size:11px; font-weight:800; text-transform:uppercase;
-            border:2px solid var(--black); padding:3px 10px;
-            box-shadow:2px 2px 0 #000;
-        }
+        /* LOADING */
+        .loading{max-width:960px;margin:40px auto;text-align:center;font-size:18px;font-weight:900;color:#555;}
 
-        .card-footer{
-            padding:12px 18px;
-            border-top:3px solid var(--black);
-            display:flex; align-items:center; justify-content:space-between;
-        }
-        .card-footer .go-btn{
-            background:var(--black); color:var(--white);
-            font-size:12px; font-weight:900; text-transform:uppercase;
-            padding:6px 16px; border:2px solid var(--black);
-            box-shadow:3px 3px 0 var(--yellow);
-        }
-        .card:hover .go-btn{
-            background:var(--yellow); color:var(--black);
-            box-shadow:3px 3px 0 var(--black);
-        }
-        .card-score{font-size:13px; font-weight:800; color:#555;}
-
-        /* COMING SOON card */
-        .card.soon{opacity:.7; cursor:not-allowed;}
-        .card.soon:hover{transform:none; box-shadow:var(--shadow-lg);}
-        .soon-badge{
-            position:absolute; top:12px; right:-28px;
-            background:var(--orange); color:var(--white);
-            font-size:11px; font-weight:900; text-transform:uppercase;
-            padding:4px 36px; transform:rotate(45deg);
-            border-top:2px solid var(--black); border-bottom:2px solid var(--black);
-        }
-
-        /* ── STATS BAR ── */
-        .stats-bar{
-            max-width:960px; margin:0 auto 36px;
-            display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
-            gap:16px;
-        }
-        .stat-card{
-            background:var(--white); border:4px solid var(--black);
-            box-shadow:var(--shadow); padding:16px 18px;
-            text-align:center;
-        }
-        .stat-card .stat-num{font-size:36px; font-weight:900; line-height:1;}
-        .stat-card .stat-lbl{font-size:12px; font-weight:800; text-transform:uppercase; color:#555; margin-top:4px;}
-
-        /* ── FOOTER ── */
-        .footer{
-            max-width:960px; margin:0 auto;
-            text-align:center; font-size:13px; font-weight:700; color:#666;
-        }
+        /* FOOTER */
+        .footer{max-width:960px;margin:0 auto;text-align:center;font-size:13px;font-weight:700;color:#666;}
         .footer b{color:var(--pink);}
+
+        /* CHIP COLORS xoay vòng */
+        .chip-c0{background:var(--yellow);}
+        .chip-c1{background:#E3F2FD;}
+        .chip-c2{background:#F3E5F5;}
+        .chip-c3{background:#E8F5E9;}
+        .chip-c4{background:#FCE4EC;}
+        .chip-c5{background:#FFF3E0;}
     </style>
 </head>
 <body>
@@ -184,7 +102,7 @@
     <!-- STATS -->
     <div class="stats-bar">
         <div class="stat-card">
-            <div class="stat-num" style="color:var(--pink);">5</div>
+            <div class="stat-num" style="color:var(--pink);" id="stat-co">…</div>
             <div class="stat-lbl">📝 Đề đã có</div>
         </div>
         <div class="stat-card">
@@ -201,189 +119,15 @@
         </div>
     </div>
 
-    <!-- SECTION: ĐỀ THI -->
+    <!-- SECTION -->
     <div class="section-title">
         <h2>📋 Danh sách đề thi</h2>
         <div class="line"></div>
     </div>
 
-    <div class="grid">
-
-        <!-- ĐỀ 1 -->
-        <a class="card" href="de1.html">
-            <div class="card-header" style="background:#FFF9C4;">
-                <div class="card-num">🥇</div>
-                <div class="card-title-wrap">
-                    <span class="card-label" style="background:var(--pink);">Đề số 1</span>
-                    <div class="card-title">Ôn tập cuối HK II</div>
-                </div>
-            </div>
-            <div class="card-body">
-                <div class="card-chips">
-                    <span class="chip" style="background:var(--yellow);">Số thập phân</span>
-                    <span class="chip" style="background:#E3F2FD;">Phân số</span>
-                    <span class="chip" style="background:#F3E5F5;">Hình học</span>
-                    <span class="chip" style="background:#E8F5E9;">Tỉ số %</span>
-                </div>
-            </div>
-            <div class="card-footer">
-                <span class="card-score">⭐ 10 điểm · 7 phần</span>
-                <span class="go-btn">Làm bài →</span>
-            </div>
-        </a>
-
-        <!-- ĐỀ 2 -->
-        <a class="card" href="de2.html">
-            <div class="card-header" style="background:#FCE4EC;">
-                <div class="card-num">🥈</div>
-                <div class="card-title-wrap">
-                    <span class="card-label" style="background:var(--blue);">Đề số 2</span>
-                    <div class="card-title">Ôn tập cuối HK II</div>
-                </div>
-            </div>
-            <div class="card-body">
-                <div class="card-chips">
-                    <span class="chip" style="background:#E3F2FD;">Phép tính</span>
-                    <span class="chip" style="background:#FFF9C4;">Diện tích</span>
-                    <span class="chip" style="background:#FCE4EC;">Bài toán có lời văn</span>
-                </div>
-            </div>
-            <div class="card-footer">
-                <span class="card-score">⭐ 10 điểm · 7 phần</span>
-                <span class="go-btn">Làm bài →</span>
-            </div>
-        </a>
-
-        <!-- ĐỀ 3 -->
-        <a class="card" href="de3.html">
-            <div class="card-header" style="background:#E8F5E9;">
-                <div class="card-num">🥉</div>
-                <div class="card-title-wrap">
-                    <span class="card-label" style="background:var(--green);">Đề số 3</span>
-                    <div class="card-title">Ôn tập cuối HK II</div>
-                </div>
-            </div>
-            <div class="card-body">
-                <div class="card-chips">
-                    <span class="chip" style="background:#E8F5E9;">Đúng / Sai</span>
-                    <span class="chip" style="background:#FFF9C4;">Tính thuận tiện</span>
-                    <span class="chip" style="background:#E3F2FD;">Diện tích vườn</span>
-                </div>
-            </div>
-            <div class="card-footer">
-                <span class="card-score">⭐ 10 điểm · 7 phần</span>
-                <span class="go-btn">Làm bài →</span>
-            </div>
-        </a>
-
-        <!-- ĐỀ 4 -->
-        <a class="card" href="de4.html">
-            <div class="card-header" style="background:#E3F2FD;">
-                <div class="card-num">4️⃣</div>
-                <div class="card-title-wrap">
-                    <span class="card-label" style="background:var(--orange);">Đề số 4</span>
-                    <div class="card-title">Ôn tập cuối HK II</div>
-                </div>
-            </div>
-            <div class="card-body">
-                <div class="card-chips">
-                    <span class="chip" style="background:#FFF9C4;">Tỉ số %</span>
-                    <span class="chip" style="background:#FCE4EC;">Chai dầu</span>
-                    <span class="chip" style="background:#E8F5E9;">Ô tô · Vận tốc</span>
-                    <span class="chip" style="background:#E3F2FD;">Hình thang</span>
-                </div>
-            </div>
-            <div class="card-footer">
-                <span class="card-score">⭐ 10 điểm · 6 phần</span>
-                <span class="go-btn">Làm bài →</span>
-            </div>
-        </a>
-
-        <!-- ĐỀ 5 -->
-        <a class="card" href="de5.html">
-            <div class="card-header" style="background:#E8F5E9;">
-                <div class="card-num">5️⃣</div>
-                <div class="card-title-wrap">
-                    <span class="card-label" style="background:var(--green);">Đề số 5</span>
-                    <div class="card-title">Ôn tập cuối HK II</div>
-                </div>
-            </div>
-            <div class="card-body">
-                <div class="card-chips">
-                    <span class="chip" style="background:#E8F5E9;">Bài nối x · y</span>
-                    <span class="chip" style="background:#E3F2FD;">Bể cá hộp chữ nhật</span>
-                    <span class="chip" style="background:#FFF9C4;">Vận tốc EaKar</span>
-                </div>
-            </div>
-            <div class="card-footer">
-                <span class="card-score">⭐ 10 điểm · 6 phần</span>
-                <span class="go-btn">Làm bài →</span>
-            </div>
-        </a>
-
-        <!-- ĐỀ 6 — COMING SOON -->
-        <div class="card soon">
-            <div class="soon-badge">Sắp có</div>
-            <div class="card-header" style="background:#F5F5F5;">
-                <div class="card-num">6️⃣</div>
-                <div class="card-title-wrap">
-                    <span class="card-label" style="background:#999;">Đề số 6</span>
-                    <div class="card-title">Ôn tập cuối HK II</div>
-                </div>
-            </div>
-            <div class="card-body">
-                <div class="card-chips">
-                    <span class="chip" style="background:#eee;">Đang chuẩn bị...</span>
-                </div>
-            </div>
-            <div class="card-footer">
-                <span class="card-score">⭐ 10 điểm · sắp có</span>
-                <span class="go-btn" style="background:#999;box-shadow:none;">Chờ tí...</span>
-            </div>
-        </div>
-
-        <!-- ĐỀ 7 — COMING SOON -->
-        <div class="card soon">
-            <div class="soon-badge">Sắp có</div>
-            <div class="card-header" style="background:#F5F5F5;">
-                <div class="card-num">7️⃣</div>
-                <div class="card-title-wrap">
-                    <span class="card-label" style="background:#999;">Đề số 7</span>
-                    <div class="card-title">Ôn tập cuối HK II</div>
-                </div>
-            </div>
-            <div class="card-body">
-                <div class="card-chips">
-                    <span class="chip" style="background:#eee;">Đang chuẩn bị...</span>
-                </div>
-            </div>
-            <div class="card-footer">
-                <span class="card-score">⭐ 10 điểm · sắp có</span>
-                <span class="go-btn" style="background:#999;box-shadow:none;">Chờ tí...</span>
-            </div>
-        </div>
-
-        <!-- ĐỀ 8 — COMING SOON -->
-        <div class="card soon">
-            <div class="soon-badge">Sắp có</div>
-            <div class="card-header" style="background:#F5F5F5;">
-                <div class="card-num">8️⃣</div>
-                <div class="card-title-wrap">
-                    <span class="card-label" style="background:#999;">Đề số 8</span>
-                    <div class="card-title">Ôn tập cuối HK II</div>
-                </div>
-            </div>
-            <div class="card-body">
-                <div class="card-chips">
-                    <span class="chip" style="background:#eee;">Đang chuẩn bị...</span>
-                </div>
-            </div>
-            <div class="card-footer">
-                <span class="card-score">⭐ 10 điểm · sắp có</span>
-                <span class="go-btn" style="background:#999;box-shadow:none;">Chờ tí...</span>
-            </div>
-        </div>
-
+    <!-- GRID -->
+    <div class="grid" id="grid">
+        <div class="loading">⏳ Đang tải danh sách đề...</div>
     </div>
 
     <!-- FOOTER -->
@@ -391,5 +135,87 @@
         <p>Phiếu học tập <b>Toán Lớp 5</b> · Ôn tập cuối học kì II · Tự chấm điểm 🎯</p>
     </div>
 
+<script>
+const CHIP_COLORS = ['chip-c0','chip-c1','chip-c2','chip-c3','chip-c4','chip-c5'];
+const NUM_EMOJIS  = ['','1️⃣','2️⃣','3️⃣','4️⃣','5️⃣','6️⃣','7️⃣','8️⃣','9️⃣','🔟'];
+
+function getEmoji(n) {
+    return n <= 10 ? NUM_EMOJIS[n] : `<span style="font-size:20px;font-weight:900;">${n}</span>`;
+}
+
+function getMedal(n) {
+    if (n === 1) return '🥇';
+    if (n === 2) return '🥈';
+    if (n === 3) return '🥉';
+    return getEmoji(n);
+}
+
+function buildCard(de) {
+    const ready = de.trang_thai === 'san_sang';
+
+    const chipsHtml = (de.chips || ['Đang chuẩn bị...']).map((c, i) =>
+        `<span class="chip ${CHIP_COLORS[i % CHIP_COLORS.length]}">${c}</span>`
+    ).join('');
+
+    if (ready) {
+        return `
+        <a class="card clickable" href="${de.file}">
+            <div class="card-header" style="background:${de.mau || '#f9f9f9'};">
+                <div class="card-num">${getMedal(de.so)}</div>
+                <div>
+                    <span class="card-label" style="background:${de.nhan_mau || '#999'};">Đề số ${de.so}</span>
+                    <div class="card-title">Ôn tập cuối HK II</div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="card-chips">${chipsHtml}</div>
+            </div>
+            <div class="card-footer">
+                <span class="card-score">⭐ 10 điểm · ${de.phan} phần</span>
+                <span class="go-btn">Làm bài →</span>
+            </div>
+        </a>`;
+    } else {
+        return `
+        <div class="card soon">
+            <div class="soon-badge">Sắp có</div>
+            <div class="card-header" style="background:#F5F5F5;">
+                <div class="card-num">${getEmoji(de.so)}</div>
+                <div>
+                    <span class="card-label" style="background:#999;">Đề số ${de.so}</span>
+                    <div class="card-title">Ôn tập cuối HK II</div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="card-chips"><span class="chip" style="background:#eee;">Đang chuẩn bị...</span></div>
+            </div>
+            <div class="card-footer">
+                <span class="card-score">⭐ 10 điểm · sắp có</span>
+                <span class="go-btn" style="background:#999;box-shadow:none;">Chờ tí...</span>
+            </div>
+        </div>`;
+    }
+}
+
+async function loadDanhSach() {
+    const grid = document.getElementById('grid');
+    try {
+        const res  = await fetch('de-list.json');
+        const list = await res.json();
+
+        const soCoSan = list.filter(d => d.trang_thai === 'san_sang').length;
+        document.getElementById('stat-co').innerText = soCoSan;
+
+        grid.innerHTML = list.map(buildCard).join('');
+    } catch(e) {
+        grid.innerHTML = `<div class="loading" style="color:red;">
+            ❌ Không tải được danh sách đề!<br>
+            <small style="font-size:13px;font-weight:700;">Hãy mở bằng localhost hoặc server (không mở file:// trực tiếp)</small>
+        </div>`;
+    }
+}
+
+loadDanhSach();
+</script>
 </body>
 </html>

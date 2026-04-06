@@ -1,0 +1,56 @@
+[
+  {
+    "so": 1,
+    "file": "de1.html",
+    "mau": "#FFF9C4",
+    "nhan_mau": "#FF3CAC",
+    "chips": ["Số thập phân", "Phân số", "Hình học", "Tỉ số %"],
+    "phan": 7,
+    "trang_thai": "san_sang"
+  },
+  {
+    "so": 2,
+    "file": "de2.html",
+    "mau": "#FCE4EC",
+    "nhan_mau": "#2979FF",
+    "chips": ["Phép tính", "Diện tích", "Bài toán có lời văn"],
+    "phan": 7,
+    "trang_thai": "san_sang"
+  },
+  {
+    "so": 3,
+    "file": "de3.html",
+    "mau": "#E8F5E9",
+    "nhan_mau": "#00C853",
+    "chips": ["Đúng / Sai", "Tính thuận tiện", "Diện tích vườn"],
+    "phan": 7,
+    "trang_thai": "san_sang"
+  },
+  {
+    "so": 4,
+    "file": "de4.html",
+    "mau": "#E3F2FD",
+    "nhan_mau": "#FF6D00",
+    "chips": ["Tỉ số %", "Chai dầu", "Ô tô · Vận tốc", "Hình thang"],
+    "phan": 6,
+    "trang_thai": "san_sang"
+  },
+  {
+    "so": 5,
+    "file": "de5.html",
+    "mau": "#E8F5E9",
+    "nhan_mau": "#00C853",
+    "chips": ["Bài nối x · y", "Bể cá hộp chữ nhật", "Vận tốc EaKar"],
+    "phan": 6,
+    "trang_thai": "san_sang"
+  },
+  {
+    "so": 6,
+    "file": "de6.html",
+    "mau": "#E3F2FD",
+    "nhan_mau": "#2979FF",
+    "chips": ["Hình tròn", "Xe đạp đường vòng", "Trường tiểu học"],
+    "phan": 5,
+    "trang_thai": "san_sang"
+  }
+]
