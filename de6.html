@@ -15,7 +15,6 @@
         body{background-color:var(--bg);background-image:radial-gradient(circle,#000 1.5px,transparent 1.5px);background-size:28px 28px;min-height:100vh;display:flex;justify-content:center;align-items:flex-start;padding:24px 12px;}
         #app{background:var(--white);width:100%;max-width:860px;border:4px solid var(--black);box-shadow:10px 10px 0 var(--black);display:flex;flex-direction:column;}
 
-        /* TOP BAR */
         .top-bar{background:var(--blue);border-bottom:4px solid var(--black);padding:18px 24px 14px;text-align:center;}
         .top-bar h1{font-size:26px;font-weight:900;color:var(--white);text-transform:uppercase;letter-spacing:1px;line-height:1.3;}
         .top-bar h1 span{color:var(--yellow);}
@@ -26,7 +25,6 @@
         .badge.white{background:var(--white);color:var(--black);}
         .badge.orange{background:var(--orange);color:var(--white);}
 
-        /* SCREEN */
         .screen{display:none;padding:28px 24px;animation:popIn .35s cubic-bezier(.34,1.56,.64,1);}
         .screen.active{display:block;}
         @keyframes popIn{from{opacity:0;transform:scale(.94) translateY(12px)}to{opacity:1;transform:scale(1) translateY(0)}}
@@ -35,14 +33,12 @@
         .q-title{font-size:20px;font-weight:900;color:var(--black);border-bottom:3px solid var(--black);padding-bottom:10px;margin-bottom:16px;}
         .q-hint{font-size:13px;font-style:italic;color:#555;margin-bottom:14px;}
 
-        /* FORM */
         .form-wrap{max-width:420px;margin:0 auto;}
         .form-group{margin-bottom:18px;}
         .form-group label{display:block;font-weight:900;font-size:13px;text-transform:uppercase;letter-spacing:.5px;color:var(--black);margin-bottom:6px;}
         .form-group input{width:100%;padding:12px 14px;border:3px solid var(--black);font-size:16px;font-weight:700;outline:none;box-shadow:var(--shadow);background:var(--white);}
         .form-group input:focus{box-shadow:6px 6px 0 var(--blue);}
 
-        /* BUTTONS */
         .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 28px;font-size:16px;font-weight:900;text-transform:uppercase;border:3px solid var(--black);cursor:pointer;transition:all .12s;box-shadow:var(--shadow-lg);margin-top:20px;}
         .btn:hover{transform:translate(-2px,-2px);box-shadow:8px 8px 0 var(--black);}
         .btn:active{transform:translate(4px,4px);box-shadow:0 0 0 var(--black);}
@@ -51,12 +47,10 @@
         .btn-block{width:100%;}
         .btn-center{display:flex;justify-content:center;}
 
-        /* QUESTION BOX */
         .question-box{border:4px solid var(--black);box-shadow:var(--shadow-lg);padding:20px;margin-bottom:16px;background:var(--white);transition:background .3s;}
         .question-box.correct{background:#CCFF90;}
         .question-box.wrong{background:#FFCDD2;}
 
-        /* MCQ */
         .mcq-item{margin-bottom:22px;}
         .mcq-item>p{font-size:15px;font-weight:800;margin-bottom:10px;line-height:1.6;}
         .mcq-options{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
@@ -64,35 +58,31 @@
         .mcq-options label:hover{background:var(--yellow);transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--black);}
         .mcq-options input[type="radio"]{transform:scale(1.4);accent-color:var(--blue);flex-shrink:0;}
 
-        /* CALC GRID */
         .calc-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:8px;align-items:stretch;}
         .calc-item{background:#f9f9f9;border:3px solid var(--black);box-shadow:var(--shadow);padding:14px;display:flex;flex-direction:column;justify-content:space-between;}
         .calc-item p{font-size:15px;font-weight:800;margin-bottom:8px;line-height:1.5;flex:1;}
         .calc-item input{width:100%;padding:8px 10px;border:3px solid var(--black);font-size:14px;font-weight:700;outline:none;background:var(--white);box-shadow:2px 2px 0 #000;margin-top:auto;}
         .calc-item input:focus{box-shadow:4px 4px 0 var(--blue);}
 
-        /* STORY BOX */
         .story-box{background:#E3F2FD;border:3px solid var(--black);box-shadow:var(--shadow);padding:14px 16px;font-size:15px;font-weight:700;margin-bottom:16px;line-height:1.8;}
         .story-box b{color:var(--pink);}
 
-        /* SOLVE */
         .solve-label{font-size:13px;font-weight:900;text-transform:uppercase;color:var(--black);margin-bottom:6px;display:block;margin-top:12px;}
         .solve-input{width:100%;padding:10px 12px;border:3px solid var(--black);font-size:15px;font-weight:700;outline:none;box-shadow:var(--shadow);background:var(--white);}
         .solve-input:focus{box-shadow:5px 5px 0 var(--blue);}
 
-        /* FEEDBACK */
         .feedback-msg{text-align:center;font-weight:900;font-size:16px;min-height:28px;margin-top:6px;padding:6px 0;}
         .text-success{color:var(--green);}
         .text-danger{color:var(--red);}
 
-        /* PROGRESS */
         .progress-strip{display:flex;border-bottom:4px solid var(--black);background:var(--white);flex-wrap:wrap;}
         .progress-step{flex:1;min-width:60px;text-align:center;padding:8px 2px;font-size:10px;font-weight:900;text-transform:uppercase;border-right:3px solid var(--black);color:#aaa;}
         .progress-step:last-child{border-right:none;}
         .progress-step.done{background:var(--blue);color:var(--white);}
         .progress-step.active{background:var(--yellow);color:var(--black);}
 
-        /* RESULT */
+        .illus-wrap{display:flex;justify-content:center;margin:12px 0 16px;}
+
         .result-screen{padding:32px 24px;text-align:center;}
         .result-title{font-size:32px;font-weight:900;text-transform:uppercase;background:var(--yellow);border:4px solid var(--black);box-shadow:var(--shadow-lg);display:inline-block;padding:8px 28px;margin-bottom:20px;}
         .result-info{display:inline-flex;flex-direction:column;gap:6px;border:3px solid var(--black);box-shadow:var(--shadow);padding:14px 28px;margin-bottom:20px;text-align:left;background:var(--white);font-size:16px;font-weight:700;}
@@ -101,12 +91,15 @@
         .score-circle .denom{font-size:22px;}
         .result-sub{font-size:16px;font-weight:800;margin-bottom:8px;}
         .result-feedback{font-size:26px;font-weight:900;text-transform:uppercase;border:4px solid var(--black);box-shadow:var(--shadow-lg);display:inline-block;padding:8px 24px;margin-top:10px;}
+        .result-nav{display:flex;gap:16px;justify-content:center;margin-top:24px;flex-wrap:wrap;}
+        .nav-btn{display:inline-flex;align-items:center;justify-content:center;padding:12px 28px;font-size:16px;font-weight:900;text-transform:uppercase;border:3px solid var(--black);cursor:pointer;box-shadow:var(--shadow-lg);text-decoration:none;transition:all .12s;}
+        .nav-btn:hover{transform:translate(-2px,-2px);box-shadow:8px 8px 0 var(--black);}
+        .nav-btn:active{transform:translate(4px,4px);box-shadow:0 0 0 var(--black);}
     </style>
 </head>
 <body>
 <div id="app">
 
-    <!-- PROGRESS -->
     <div class="progress-strip" id="progress-strip" style="display:none">
         <div class="progress-step" id="ps1">C1–C5</div>
         <div class="progress-step" id="ps2">C6: Tính</div>
@@ -115,7 +108,6 @@
         <div class="progress-step" id="ps5">C9: Tính nhanh</div>
     </div>
 
-    <!-- TOP BAR -->
     <div class="top-bar">
         <h1>📚 Phiếu học tập<br><span>Ôn tập cuối học kì II – Đề 6</span></h1>
         <div class="badges">
@@ -143,7 +135,7 @@
         </div>
     </div>
 
-    <!-- ══ CÂU 1–5: TRẮC NGHIỆM ══ -->
+    <!-- CÂU 1–5: TRẮC NGHIỆM -->
     <div id="screen-p1" class="screen">
         <span class="q-label">🔘 Trắc nghiệm – Câu 1 đến 5</span>
         <div class="question-box" id="box-p1">
@@ -157,7 +149,7 @@
         </div>
     </div>
 
-    <!-- ══ CÂU 6: Tính ══ -->
+    <!-- CÂU 6: TÍNH -->
     <div id="screen-c6" class="screen">
         <span class="q-label">🔢 Câu 6</span>
         <div class="question-box" id="box-c6">
@@ -166,11 +158,11 @@
             <div class="calc-grid">
                 <div class="calc-item">
                     <p>a) 3 phút 15 giây × 4 – 2 phút 15 giây</p>
-                    <input type="text" id="c6_a" placeholder="Kết quả...">
+                    <input type="text" id="c6_a" placeholder="Nhập kết quả...">
                 </div>
                 <div class="calc-item">
                     <p>b) (1 giờ 45 phút + 2 giờ 15 phút) : 3</p>
-                    <input type="text" id="c6_b" placeholder="Kết quả...">
+                    <input type="text" id="c6_b" placeholder="Nhập kết quả...">
                 </div>
             </div>
         </div>
@@ -180,7 +172,7 @@
         </div>
     </div>
 
-    <!-- ══ CÂU 7: Hai xe đạp ══ -->
+    <!-- CÂU 7: HAI XE ĐẠP -->
     <div id="screen-c7" class="screen">
         <span class="q-label">🚴 Câu 7</span>
         <div class="question-box" id="box-c7">
@@ -190,13 +182,13 @@
                 Vận tốc xe I: <b>250m/phút</b> · Vận tốc xe II: <b>300m/phút</b><br>
                 Hai xe cùng khởi hành một lúc từ một vạch.<br>
                 Đường vòng dài <b>1,1km = 1100m</b>.<br><br>
-                a) 🔄 Nếu họ đi <b>ngược chiều</b> — gặp nhau sau bao lâu?<br>
-                b) ➡️ Nếu họ đi <b>cùng chiều</b> — gặp nhau sau bao lâu?
+                a) 🔄 Đi <b>ngược chiều</b> — gặp nhau sau bao lâu?<br>
+                b) ➡️ Đi <b>cùng chiều</b> — gặp nhau sau bao lâu?
             </div>
-            <span class="solve-label">🔄 a) Đi ngược chiều — thời gian gặp nhau:</span>
-            <input type="text" id="c7_a" class="solve-input" placeholder="? phút">
-            <span class="solve-label">➡️ b) Đi cùng chiều — thời gian gặp nhau:</span>
-            <input type="text" id="c7_b" class="solve-input" placeholder="? phút">
+            <span class="solve-label">🔄 a) Ngược chiều — thời gian gặp nhau:</span>
+            <input type="text" id="c7_a" class="solve-input" placeholder="Nhập kết quả... phút">
+            <span class="solve-label">➡️ b) Cùng chiều — thời gian gặp nhau:</span>
+            <input type="text" id="c7_b" class="solve-input" placeholder="Nhập kết quả... phút">
         </div>
         <div class="feedback-msg" id="msg-c7"></div>
         <div class="btn-center">
@@ -204,20 +196,20 @@
         </div>
     </div>
 
-    <!-- ══ CÂU 8: Trường tiểu học ══ -->
+    <!-- CÂU 8: TRƯỜNG TIỂU HỌC -->
     <div id="screen-c8" class="screen">
         <span class="q-label">🏫 Câu 8</span>
         <div class="question-box" id="box-c8">
             <div class="q-title">CÂU 8 — TRƯỜNG TIỂU HỌC (1,5 điểm)</div>
             <div class="story-box">
-                🏫 Một trường tiểu học có <b>1056 học sinh khá, giỏi</b> chiếm <b>88%</b> số học sinh trong trường.<br><br>
-                a) ❓ Trường đó có bao nhiêu học sinh?<br>
-                b) ❓ Số học sinh còn lại chiếm bao nhiêu phần trăm số học sinh toàn trường?
+                🏫 Trường tiểu học có <b>1056 học sinh khá, giỏi</b> chiếm <b>88%</b> tổng số học sinh.<br><br>
+                a) ❓ Trường có bao nhiêu học sinh?<br>
+                b) ❓ Số học sinh còn lại chiếm bao nhiêu phần trăm?
             </div>
-            <span class="solve-label">👨‍🎓 a) Tổng số học sinh toàn trường:</span>
-            <input type="text" id="c8_a" class="solve-input" placeholder="? học sinh">
-            <span class="solve-label">📊 b) Tỉ lệ % học sinh còn lại:</span>
-            <input type="text" id="c8_b" class="solve-input" placeholder="? %">
+            <span class="solve-label">👨‍🎓 a) Tổng số học sinh:</span>
+            <input type="text" id="c8_a" class="solve-input" placeholder="Nhập kết quả... học sinh">
+            <span class="solve-label">📊 b) Tỉ lệ % còn lại:</span>
+            <input type="text" id="c8_b" class="solve-input" placeholder="Nhập kết quả... %">
         </div>
         <div class="feedback-msg" id="msg-c8"></div>
         <div class="btn-center">
@@ -225,7 +217,7 @@
         </div>
     </div>
 
-    <!-- ══ CÂU 9: Tính nhanh ══ -->
+    <!-- CÂU 9: TÍNH NHANH -->
     <div id="screen-c9" class="screen">
         <span class="q-label">⚡ Câu 9</span>
         <div class="question-box" id="box-c9">
@@ -234,7 +226,7 @@
                 ⚡ Tính nhanh: <b>36 : 25 + 64 : 25</b>
             </div>
             <span class="solve-label">💡 Kết quả:</span>
-            <input type="text" id="c9_kq" class="solve-input" placeholder="Kết quả...">
+            <input type="text" id="c9_kq" class="solve-input" placeholder="Nhập kết quả...">
         </div>
         <div class="feedback-msg" id="msg-c9"></div>
         <div class="btn-center">
@@ -254,78 +246,64 @@
         </div>
         <p class="result-sub">Số phần đúng ngay lần đầu: <b id="resPerfect"></b> / 5</p>
         <div class="result-feedback" id="resFeedback"></div>
+        <div class="result-nav">
+            <a href="index.html" class="nav-btn" style="background:#FFE500;color:#000;">🏠 Về trang chủ</a>
+            <a href="de7.html"   class="nav-btn" style="background:#2979FF;color:#fff;">📖 Đề tiếp theo →</a>
+        </div>
     </div>
 
 </div>
 
 <script>
-/* ═══ HELPER ═══ */
 function shuffle(arr){const a=[...arr];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
 function toLabel(i){return String.fromCharCode(65+i);}
 function norm(s){return s.trim().toLowerCase().replace(/\s+/g,' ');}
 
-/* ═══ STATE ═══ */
 const state={
     scores:{p1:0,c6:0,c7:0,c8:0,c9:0},
     isFirstAttempt:{p1:true,c6:true,c7:true,c8:true,c9:true},
     perfectCount:0
 };
 
-/* ═══ TRẮC NGHIỆM ═══
-   Đáp án: C1=C(12 vòng), C2=B(25%), C3=B(15 lít), C4=C(6), C5=D(2,25 lần)
-   ⚠️ Sẽ cập nhật sau khi có đáp án chính thức
-*/
 const P1_ITEMS=[
-    {
-        id:'q1',
-        text:'Câu 1. (1đ) Trong một nửa ngày kim phút quay được số vòng là:',
-        options:['4 vòng','6 vòng','12 vòng','24 vòng'],
-        correctText:'12 vòng',   // C ✅
-        score:1
-    },
-    {
-        id:'q2',
-        text:'Câu 2. (1đ) Hình tròn tâm I có bán kính bằng ½ bán kính hình tròn tâm O. Tỉ số phần trăm diện tích hình tròn tâm I và hình tròn tâm O là:',
-        options:['50%','25%','30%','60%'],
-        correctText:'25%',   // B ✅
-        score:1
-    },
-    {
-        id:'q3',
-        text:'Câu 3. (1đ) Có hai can dầu. Sau khi đổ 7,5 lít dầu từ can I sang can II thì lượng dầu ở hai can bằng nhau. Hỏi lúc đầu can I nhiều hơn can II mấy lít dầu?',
-        options:['7,5 lít','15 lít','10 lít','Cả A, B, C đều sai'],
-        correctText:'15 lít',   // B ✅
-        score:1
-    },
-    {
-        id:'q4',
-        text:'Câu 4. (1đ) Cho hình thoi ABCD và hình thoi MNPQ, trong đó MP = ½ AC và QN = ⅓ DB. Tính tỉ số diện tích hình thoi ABCD và hình thoi MNPQ là:',
-        options:['2','4','6','8'],
-        correctText:'6',   // C ✅
-        score:1
-    },
-    {
-        id:'q5',
-        text:'Câu 5. (1đ) Diện tích một hình tròn sẽ gấp lên mấy lần nếu bán kính tăng gấp rưỡi?',
-        options:['Gấp rưỡi','Gấp 3 lần','Gấp 6 lần','Gấp 2,25 lần'],
-        correctText:'Gấp 2,25 lần',   // D ✅
-        score:1
-    },
+    {id:'q1',text:'Câu 1. (1đ) Trong một nửa ngày kim phút quay được số vòng là:',
+     options:['4 vòng','6 vòng','12 vòng','24 vòng'],correctText:'12 vòng',score:1},
+    {id:'q2',text:'Câu 2. (1đ) Hình tròn tâm I có bán kính bằng ½ bán kính hình tròn tâm O. Tỉ số phần trăm diện tích hình tròn tâm I và hình tròn tâm O là:',
+     options:['50%','25%','30%','60%'],correctText:'25%',score:1,hasIllus:true},
+    {id:'q3',text:'Câu 3. (1đ) Có hai can dầu. Sau khi đổ 7,5 lít từ can I sang can II thì lượng dầu hai can bằng nhau. Can I lúc đầu nhiều hơn can II bao nhiêu lít?',
+     options:['7,5 lít','15 lít','10 lít','Cả A, B, C đều sai'],correctText:'15 lít',score:1},
+    {id:'q4',text:'Câu 4. (1đ) Hình thoi ABCD và MNPQ, trong đó MP = ½AC và QN = ⅓DB. Tỉ số diện tích ABCD và MNPQ là:',
+     options:['2','4','6','8'],correctText:'6',score:1},
+    {id:'q5',text:'Câu 5. (1đ) Diện tích hình tròn gấp lên mấy lần nếu bán kính tăng gấp rưỡi?',
+     options:['Gấp rưỡi','Gấp 3 lần','Gấp 6 lần','Gấp 2,25 lần'],correctText:'Gấp 2,25 lần',score:1},
 ];
 
+const ILLUS_Q2=`
+<div style="display:flex;justify-content:center;margin:10px 0 14px;">
+<svg width="200" height="200" viewBox="0 0 200 200">
+  <circle cx="100" cy="100" r="80" fill="#E3F2FD" stroke="#000" stroke-width="3"/>
+  <circle cx="100" cy="100" r="4" fill="#000"/>
+  <text x="88" y="118" font-size="15" font-weight="900" fill="#000">O</text>
+  <circle cx="128" cy="72" r="40" fill="#FF3CAC" fill-opacity="0.22" stroke="#FF3CAC" stroke-width="2.5"/>
+  <circle cx="128" cy="72" r="4" fill="#FF3CAC"/>
+  <text x="136" y="66" font-size="15" font-weight="900" fill="#FF3CAC">I</text>
+</svg>
+</div>`;
+
 function buildP1(){
-    const body=document.getElementById('p1-body');
-    body.innerHTML='';
+    const body=document.getElementById('p1-body');body.innerHTML='';
     P1_ITEMS.forEach(item=>{
         const shuffled=shuffle([...item.options]);
         const div=document.createElement('div');div.className='mcq-item';
-        let html=`<p>${item.text}</p><div class="mcq-options">`;
+        let html=`<p>${item.text}</p>`;
+        if(item.hasIllus)html+=ILLUS_Q2;
+        html+=`<div class="mcq-options">`;
         shuffled.forEach((opt,i)=>{html+=`<label><input type="radio" name="${item.id}" value="${opt}"> ${toLabel(i)}. ${opt}</label>`;});
-        html+='</div>';div.innerHTML=html;body.appendChild(div);
+        html+='</div>';
+        div.innerHTML=html;body.appendChild(div);
     });
 }
 
-/* ═══ PROGRESS ═══ */
 const STEPS=['p1','c6','c7','c8','c9'];
 function updateProgress(activeQ){
     document.getElementById('progress-strip').style.display='flex';
@@ -338,7 +316,6 @@ function updateProgress(activeQ){
     });
 }
 
-/* ═══ SCREEN ═══ */
 function showScreen(id){
     document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
     document.getElementById(id).classList.add('active');
@@ -348,7 +325,6 @@ function showScreen(id){
     if(id==='screen-result')document.getElementById('progress-strip').style.display='none';
 }
 
-/* ═══ START ═══ */
 function startQuiz(){
     const name=document.getElementById('studentName').value.trim();
     const cls=document.getElementById('studentClass').value.trim();
@@ -359,7 +335,6 @@ function startQuiz(){
     buildP1();showScreen('screen-p1');
 }
 
-/* ═══ FEEDBACK ═══ */
 function showFeedback(q,ok,msg){
     const box=document.getElementById('box-'+q);
     box.classList.remove('correct','wrong');box.classList.add(ok?'correct':'wrong');
@@ -371,7 +346,6 @@ function advanceBtn(btnId,label,nextFn){
     btn.innerText=label;btn.classList.add('btn-success');btn.onclick=nextFn;
 }
 
-/* ═══ CHECK P1 ═══ */
 function checkP1(){
     let score=0,answered=0;
     P1_ITEMS.forEach(item=>{
@@ -384,115 +358,71 @@ function checkP1(){
         showFeedback('p1',true,'🎉 Xuất sắc! Đúng hết 5/5!');
         advanceBtn('btn-p1','Sang Câu 6 ➡️',()=>showScreen('screen-c6'));
     } else {
-        showFeedback('p1',false,`Được ${score}/5 điểm — kiểm tra lại nhé! 💪`);
+        showFeedback('p1',false,`Được ${score}/5 điểm — Kiểm tra lại nhé! 💪`);
     }
 }
 
-/* ═══ CHECK CÂU 6 ═══ */
 function checkC6(){
     const va=norm(document.getElementById('c6_a').value);
     const vb=norm(document.getElementById('c6_b').value);
     if(!va||!vb){showFeedback('c6',false,'Điền đủ cả 2 ô nhé! 📝');return;}
-
-    // a) 3p15s × 4 – 2p15s
-    //  = 12p60s – 2p15s = 10p45s
-    const okA=/10\s*(phút|p|ph|')\s*45\s*(giây|s|giay)?/.test(va)
-           || /645/.test(va.replace(/\s/g,''));
-
-    // b) (1g45p + 2g15p) : 3 = 3g60p : 3 = 1g20p
-    const okB=/1\s*(giờ|g|h)\s*20\s*(phút|p|ph)?/.test(vb)
-           || /\b80\b/.test(vb.replace(/\s/g,''));
-
+    const okA=/10\s*(phút|p|ph|')\s*45\s*(giây|s|giay)?/.test(va)||/645/.test(va.replace(/\s/g,''));
+    const okB=/1\s*(giờ|g|h)\s*20\s*(phút|p|ph)?/.test(vb)||/\b80\b/.test(vb.replace(/\s/g,''));
     const correct=(okA?1:0)+(okB?1:0);
-    if(state.isFirstAttempt.c6){
-        state.scores.c6=correct*0.75;
-        if(correct===2)state.perfectCount++;
-        state.isFirstAttempt.c6=false;
-    }
+    if(state.isFirstAttempt.c6){state.scores.c6=correct*0.75;if(correct===2)state.perfectCount++;state.isFirstAttempt.c6=false;}
     if(okA&&okB){
         showFeedback('c6',true,'🎉 Chính xác! a) 10 phút 45 giây · b) 1 giờ 20 phút');
         advanceBtn('btn-c6','Sang Câu 7 ➡️',()=>showScreen('screen-c7'));
     } else {
-        showFeedback('c6',false,`Đúng ${correct}/2 — Đáp án: a) 10 phút 45 giây · b) 1 giờ 20 phút 💡`);
+        showFeedback('c6',false,`Đúng ${correct}/2 — Gợi ý: a) 3p15s×4=13p0s, trừ 2p15s · b) cộng rồi chia 3 💡`);
     }
 }
-/* ═══ CHECK CÂU 7 ═══ */
+
 function checkC7(){
     const va=norm(document.getElementById('c7_a').value);
     const vb=norm(document.getElementById('c7_b').value);
     if(!va||!vb){showFeedback('c7',false,'Điền đủ cả 2 ô nhé! 📝');return;}
-
-    // Đổi: 250m/phút = 15km/h ; 300m/phút = 18km/h
-    // Đường vòng: 1,1km
-    // a) Ngược chiều: t = 1,1 : (15+18) = 1,1 : 33 = 1/30 giờ = 2 phút
-    const okA=/1\s*\/\s*30/.test(va.replace(/\s/g,''))
-           || /\b2\s*(phút|p|ph)?\b/.test(va);
-
-    // b) Cùng chiều: t = 1,1 : (18-15) = 1,1 : 3 = 11/30 giờ = 22 phút
-    const okB=/11\s*\/\s*30/.test(vb.replace(/\s/g,''))
-           || /\b22\s*(phút|p|ph)?\b/.test(vb);
-
+    const okA=/1\s*\/\s*30/.test(va.replace(/\s/g,''))||/\b2\s*(phút|p|ph)?\b/.test(va);
+    const okB=/11\s*\/\s*30/.test(vb.replace(/\s/g,''))||/\b22\s*(phút|p|ph)?\b/.test(vb);
     const correct=(okA?1:0)+(okB?1:0);
-    if(state.isFirstAttempt.c7){
-        state.scores.c7=correct*0.75;
-        if(correct===2)state.perfectCount++;
-        state.isFirstAttempt.c7=false;
-    }
+    if(state.isFirstAttempt.c7){state.scores.c7=correct*0.75;if(correct===2)state.perfectCount++;state.isFirstAttempt.c7=false;}
     if(okA&&okB){
-        showFeedback('c7',true,'🎉 Chính xác! a) 1/30 giờ (2 phút) · b) 11/30 giờ (22 phút)');
+        showFeedback('c7',true,'🎉 Chính xác! a) 2 phút · b) 22 phút');
         advanceBtn('btn-c7','Sang Câu 8 ➡️',()=>showScreen('screen-c8'));
     } else {
-        showFeedback('c7',false,`Đúng ${correct}/2 — Đáp án: a) 1/30 giờ = 2 phút · b) 11/30 giờ = 22 phút 💡`);
+        showFeedback('c7',false,`Đúng ${correct}/2 — Gợi ý: a) 1100÷(250+300) · b) 1100÷(300−250) 💡`);
     }
 }
 
-/* ═══ CHECK CÂU 8 ═══ */
 function checkC8(){
     const va=norm(document.getElementById('c8_a').value);
     const vb=norm(document.getElementById('c8_b').value);
     if(!va||!vb){showFeedback('c8',false,'Điền đủ cả 2 ô nhé! 📝');return;}
-
-    // a) 1056 : 88 × 100 = 1200 học sinh
     const okA=/\b1200\b/.test(va.replace(/\s/g,''));
-    // b) 144 : 1200 × 100 = 12%
     const okB=/\b12\b/.test(vb.replace(/\s/g,''));
-
     const correct=(okA?1:0)+(okB?1:0);
-    if(state.isFirstAttempt.c8){
-        state.scores.c8=correct*0.75;
-        if(correct===2)state.perfectCount++;
-        state.isFirstAttempt.c8=false;
-    }
+    if(state.isFirstAttempt.c8){state.scores.c8=correct*0.75;if(correct===2)state.perfectCount++;state.isFirstAttempt.c8=false;}
     if(okA&&okB){
         showFeedback('c8',true,'🎉 Chính xác! a) 1200 học sinh · b) 12%');
         advanceBtn('btn-c8','Sang Câu 9 ➡️',()=>showScreen('screen-c9'));
     } else {
-        showFeedback('c8',false,`Đúng ${correct}/2 — Đáp án: a) 1200 học sinh · b) 12% 💡`);
+        showFeedback('c8',false,`Đúng ${correct}/2 — Gợi ý: a) 1056÷88×100 · b) 100%−88% 💡`);
     }
 }
 
-/* ═══ CHECK CÂU 9 ═══ */
 function checkC9(){
     const v=norm(document.getElementById('c9_kq').value);
     if(!v){showFeedback('c9',false,'Nhập kết quả vào nhé! 📝');return;}
-
-    // 36:25 + 64:25 = (36+64):25 = 100:25 = 4
     const ok=/\b4\b/.test(v.replace(/\s/g,''));
-
-    if(state.isFirstAttempt.c9){
-        state.scores.c9=ok?0.5:0;
-        if(ok)state.perfectCount++;
-        state.isFirstAttempt.c9=false;
-    }
+    if(state.isFirstAttempt.c9){state.scores.c9=ok?0.5:0;if(ok)state.perfectCount++;state.isFirstAttempt.c9=false;}
     if(ok){
-        showFeedback('c9',true,'🎉 Chính xác! (36+64) : 25 = 100 : 25 = 4');
+        showFeedback('c9',true,'🎉 Chính xác! (36+64)÷25 = 100÷25 = 4');
         setTimeout(finishQuiz,900);
     } else {
-        showFeedback('c9',false,'Sai rồi — Gợi ý: 36:25 + 64:25 = (36+64):25 = 100:25 = 4 💡');
+        showFeedback('c9',false,'Sai rồi — Gợi ý: 36:25 + 64:25 = (36+64):25 = ? 💡');
     }
 }
 
-/* ═══ FINISH ═══ */
 function finishQuiz(){
     let total=Object.values(state.scores).reduce((a,b)=>a+b,0);
     total=Math.round(total*10)/10;total=Math.min(total,10);
