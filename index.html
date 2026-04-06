@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phiếu học tập Toán Lớp 5 — Ôn tập cuối HK II</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --black:#000; --white:#fff; --yellow:#FFE500; --pink:#FF3CAC;
+            --green:#00C853; --blue:#2979FF; --orange:#FF6D00; --red:#FF1744;
+            --purple:#AA00FF; --cyan:#00BCD4;
+            --bg:#FFF9C4; --shadow:4px 4px 0px #000; --shadow-lg:6px 6px 0px #000;
+        }
+        *{box-sizing:border-box;margin:0;padding:0;font-family:'Nunito',sans-serif;}
+        body{
+            background-color:var(--bg);
+            background-image:radial-gradient(circle,#000 1.5px,transparent 1.5px);
+            background-size:28px 28px;
+            min-height:100vh;
+            padding:28px 16px 48px;
+        }
+
+        /* ── HEADER ── */
+        .header{
+            max-width:960px; margin:0 auto 36px;
+            background:var(--yellow);
+            border:4px solid var(--black);
+            box-shadow:8px 8px 0 var(--black);
+            padding:24px 28px 20px;
+            display:flex; flex-direction:column; align-items:center; gap:14px;
+            text-align:center;
+        }
+        .header-icon{font-size:52px;line-height:1;}
+        .header h1{
+            font-size:28px; font-weight:900; text-transform:uppercase;
+            color:var(--black); letter-spacing:1px; line-height:1.3;
+        }
+        .header h1 span{color:var(--pink);}
+        .header-meta{
+            display:flex; flex-wrap:wrap; justify-content:center; gap:10px;
+        }
+        .meta-chip{
+            background:var(--black); color:var(--white);
+            font-size:13px; font-weight:800; text-transform:uppercase;
+            padding:5px 14px; border:2px solid var(--black);
+            box-shadow:3px 3px 0 var(--pink);
+        }
+
+        /* ── SECTION TITLE ── */
+        .section-title{
+            max-width:960px; margin:0 auto 20px;
+            display:flex; align-items:center; gap:12px;
+        }
+        .section-title h2{
+            font-size:20px; font-weight:900; text-transform:uppercase;
+            background:var(--pink); color:var(--white);
+            border:3px solid var(--black); box-shadow:var(--shadow);
+            padding:6px 18px;
+        }
+        .section-title .line{flex:1;height:4px;background:var(--black);}
+
+        /* ── GRID ── */
+        .grid{
+            max-width:960px; margin:0 auto 40px;
+            display:grid;
+            grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+            gap:20px;
+        }
+
+        /* ── CARD ── */
+        .card{
+            background:var(--white);
+            border:4px solid var(--black);
+            box-shadow:var(--shadow-lg);
+            display:flex; flex-direction:column;
+            text-decoration:none; color:var(--black);
+            transition:transform .15s, box-shadow .15s;
+            cursor:pointer;
+            position:relative;
+            overflow:hidden;
+        }
+        .card:hover{
+            transform:translate(-3px,-3px);
+            box-shadow:10px 10px 0 var(--black);
+        }
+        .card:active{
+            transform:translate(4px,4px);
+            box-shadow:0 0 0 var(--black);
+        }
+
+        .card-header{
+            padding:18px 18px 14px;
+            border-bottom:3px solid var(--black);
+            display:flex; align-items:center; gap:12px;
+        }
+        .card-num{
+            font-size:32px; font-weight:900; line-height:1;
+            min-width:44px; text-align:center;
+        }
+        .card-title-wrap{}
+        .card-label{
+            font-size:11px; font-weight:900; text-transform:uppercase;
+            color:var(--white); padding:2px 8px;
+            display:inline-block; margin-bottom:4px;
+        }
+        .card-title{font-size:15px; font-weight:900; line-height:1.3;}
+
+        .card-body{
+            padding:14px 18px; flex:1;
+            display:flex; flex-direction:column; gap:8px;
+        }
+        .card-chips{display:flex; flex-wrap:wrap; gap:6px;}
+        .chip{
+            font-size:11px; font-weight:800; text-transform:uppercase;
+            border:2px solid var(--black); padding:3px 10px;
+            box-shadow:2px 2px 0 #000;
+        }
+
+        .card-footer{
+            padding:12px 18px;
+            border-top:3px solid var(--black);
+            display:flex; align-items:center; justify-content:space-between;
+        }
+        .card-footer .go-btn{
+            background:var(--black); color:var(--white);
+            font-size:12px; font-weight:900; text-transform:uppercase;
+            padding:6px 16px; border:2px solid var(--black);
+            box-shadow:3px 3px 0 var(--yellow);
+        }
+        .card:hover .go-btn{
+            background:var(--yellow); color:var(--black);
+            box-shadow:3px 3px 0 var(--black);
+        }
+        .card-score{font-size:13px; font-weight:800; color:#555;}
+
+        /* COMING SOON card */
+        .card.soon{opacity:.7; cursor:not-allowed;}
+        .card.soon:hover{transform:none; box-shadow:var(--shadow-lg);}
+        .soon-badge{
+            position:absolute; top:12px; right:-28px;
+            background:var(--orange); color:var(--white);
+            font-size:11px; font-weight:900; text-transform:uppercase;
+            padding:4px 36px; transform:rotate(45deg);
+            border-top:2px solid var(--black); border-bottom:2px solid var(--black);
+        }
+
+        /* ── STATS BAR ── */
+        .stats-bar{
+            max-width:960px; margin:0 auto 36px;
+            display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+            gap:16px;
+        }
+        .stat-card{
+            background:var(--white); border:4px solid var(--black);
+            box-shadow:var(--shadow); padding:16px 18px;
+            text-align:center;
+        }
+        .stat-card .stat-num{font-size:36px; font-weight:900; line-height:1;}
+        .stat-card .stat-lbl{font-size:12px; font-weight:800; text-transform:uppercase; color:#555; margin-top:4px;}
+
+        /* ── FOOTER ── */
+        .footer{
+            max-width:960px; margin:0 auto;
+            text-align:center; font-size:13px; font-weight:700; color:#666;
+        }
+        .footer b{color:var(--pink);}
+    </style>
+</head>
+<body>
+
+    <!-- HEADER -->
+    <div class="header">
+        <div class="header-icon">📚</div>
+        <h1>Phiếu học tập <span>Toán Lớp 5</span><br>Ôn tập cuối học kì II</h1>
+        <div class="header-meta">
+            <span class="meta-chip">📖 Toán · Lớp 5</span>
+            <span class="meta-chip">⏱ 40 phút / đề</span>
+            <span class="meta-chip">🏆 10 điểm / đề</span>
+            <span class="meta-chip">✅ Tự chấm điểm</span>
+        </div>
+    </div>
+
+    <!-- STATS -->
+    <div class="stats-bar">
+        <div class="stat-card">
+            <div class="stat-num" style="color:var(--pink);">5</div>
+            <div class="stat-lbl">📝 Đề đã có</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-num" style="color:var(--blue);">10</div>
+            <div class="stat-lbl">🏆 Điểm tối đa</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-num" style="color:var(--green);">40</div>
+            <div class="stat-lbl">⏱ Phút / đề</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-num" style="color:var(--orange);">∞</div>
+            <div class="stat-lbl">🔄 Luyện tập lại</div>
+        </div>
+    </div>
+
+    <!-- SECTION: ĐỀ THI -->
+    <div class="section-title">
+        <h2>📋 Danh sách đề thi</h2>
+        <div class="line"></div>
+    </div>
+
+    <div class="grid">
+
+        <!-- ĐỀ 1 -->
+        <a class="card" href="de1.html">
+            <div class="card-header" style="background:#FFF9C4;">
+                <div class="card-num">🥇</div>
+                <div class="card-title-wrap">
+                    <span class="card-label" style="background:var(--pink);">Đề số 1</span>
+                    <div class="card-title">Ôn tập cuối HK II</div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="card-chips">
+                    <span class="chip" style="background:var(--yellow);">Số thập phân</span>
+                    <span class="chip" style="background:#E3F2FD;">Phân số</span>
+                    <span class="chip" style="background:#F3E5F5;">Hình học</span>
+                    <span class="chip" style="background:#E8F5E9;">Tỉ số %</span>
+                </div>
+            </div>
+            <div class="card-footer">
+                <span class="card-score">⭐ 10 điểm · 7 phần</span>
+                <span class="go-btn">Làm bài →</span>
+            </div>
+        </a>
+
+        <!-- ĐỀ 2 -->
+        <a class="card" href="de2.html">
+            <div class="card-header" style="background:#FCE4EC;">
+                <div class="card-num">🥈</div>
+                <div class="card-title-wrap">
+                    <span class="card-label" style="background:var(--blue);">Đề số 2</span>
+                    <div class="card-title">Ôn tập cuối HK II</div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="card-chips">
+                    <span class="chip" style="background:#E3F2FD;">Phép tính</span>
+                    <span class="chip" style="background:#FFF9C4;">Diện tích</span>
+                    <span class="chip" style="background:#FCE4EC;">Bài toán có lời văn</span>
+                </div>
+            </div>
+            <div class="card-footer">
+                <span class="card-score">⭐ 10 điểm · 7 phần</span>
+                <span class="go-btn">Làm bài →</span>
+            </div>
+        </a>
+
+        <!-- ĐỀ 3 -->
+        <a class="card" href="de3.html">
+            <div class="card-header" style="background:#E8F5E9;">
+                <div class="card-num">🥉</div>
+                <div class="card-title-wrap">
+                    <span class="card-label" style="background:var(--green);">Đề số 3</span>
+                    <div class="card-title">Ôn tập cuối HK II</div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="card-chips">
+                    <span class="chip" style="background:#E8F5E9;">Đúng / Sai</span>
+                    <span class="chip" style="background:#FFF9C4;">Tính thuận tiện</span>
+                    <span class="chip" style="background:#E3F2FD;">Diện tích vườn</span>
+                </div>
+            </div>
+            <div class="card-footer">
+                <span class="card-score">⭐ 10 điểm · 7 phần</span>
+                <span class="go-btn">Làm bài →</span>
+            </div>
+        </a>
+
+        <!-- ĐỀ 4 -->
+        <a class="card" href="de4.html">
+            <div class="card-header" style="background:#E3F2FD;">
+                <div class="card-num">4️⃣</div>
+                <div class="card-title-wrap">
+                    <span class="card-label" style="background:var(--orange);">Đề số 4</span>
+                    <div class="card-title">Ôn tập cuối HK II</div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="card-chips">
+                    <span class="chip" style="background:#FFF9C4;">Tỉ số %</span>
+                    <span class="chip" style="background:#FCE4EC;">Chai dầu</span>
+                    <span class="chip" style="background:#E8F5E9;">Ô tô · Vận tốc</span>
+                    <span class="chip" style="background:#E3F2FD;">Hình thang</span>
+                </div>
+            </div>
+            <div class="card-footer">
+                <span class="card-score">⭐ 10 điểm · 6 phần</span>
+                <span class="go-btn">Làm bài →</span>
+            </div>
+        </a>
+
+        <!-- ĐỀ 5 -->
+        <a class="card" href="de5.html">
+            <div class="card-header" style="background:#E8F5E9;">
+                <div class="card-num">5️⃣</div>
+                <div class="card-title-wrap">
+                    <span class="card-label" style="background:var(--green);">Đề số 5</span>
+                    <div class="card-title">Ôn tập cuối HK II</div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="card-chips">
+                    <span class="chip" style="background:#E8F5E9;">Bài nối x · y</span>
+                    <span class="chip" style="background:#E3F2FD;">Bể cá hộp chữ nhật</span>
+                    <span class="chip" style="background:#FFF9C4;">Vận tốc EaKar</span>
+                </div>
+            </div>
+            <div class="card-footer">
+                <span class="card-score">⭐ 10 điểm · 6 phần</span>
+                <span class="go-btn">Làm bài →</span>
+            </div>
+        </a>
+
+        <!-- ĐỀ 6 — COMING SOON -->
+        <div class="card soon">
+            <div class="soon-badge">Sắp có</div>
+            <div class="card-header" style="background:#F5F5F5;">
+                <div class="card-num">6️⃣</div>
+                <div class="card-title-wrap">
+                    <span class="card-label" style="background:#999;">Đề số 6</span>
+                    <div class="card-title">Ôn tập cuối HK II</div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="card-chips">
+                    <span class="chip" style="background:#eee;">Đang chuẩn bị...</span>
+                </div>
+            </div>
+            <div class="card-footer">
+                <span class="card-score">⭐ 10 điểm · sắp có</span>
+                <span class="go-btn" style="background:#999;box-shadow:none;">Chờ tí...</span>
+            </div>
+        </div>
+
+        <!-- ĐỀ 7 — COMING SOON -->
+        <div class="card soon">
+            <div class="soon-badge">Sắp có</div>
+            <div class="card-header" style="background:#F5F5F5;">
+                <div class="card-num">7️⃣</div>
+                <div class="card-title-wrap">
+                    <span class="card-label" style="background:#999;">Đề số 7</span>
+                    <div class="card-title">Ôn tập cuối HK II</div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="card-chips">
+                    <span class="chip" style="background:#eee;">Đang chuẩn bị...</span>
+                </div>
+            </div>
+            <div class="card-footer">
+                <span class="card-score">⭐ 10 điểm · sắp có</span>
+                <span class="go-btn" style="background:#999;box-shadow:none;">Chờ tí...</span>
+            </div>
+        </div>
+
+        <!-- ĐỀ 8 — COMING SOON -->
+        <div class="card soon">
+            <div class="soon-badge">Sắp có</div>
+            <div class="card-header" style="background:#F5F5F5;">
+                <div class="card-num">8️⃣</div>
+                <div class="card-title-wrap">
+                    <span class="card-label" style="background:#999;">Đề số 8</span>
+                    <div class="card-title">Ôn tập cuối HK II</div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="card-chips">
+                    <span class="chip" style="background:#eee;">Đang chuẩn bị...</span>
+                </div>
+            </div>
+            <div class="card-footer">
+                <span class="card-score">⭐ 10 điểm · sắp có</span>
+                <span class="go-btn" style="background:#999;box-shadow:none;">Chờ tí...</span>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- FOOTER -->
+    <div class="footer">
+        <p>Phiếu học tập <b>Toán Lớp 5</b> · Ôn tập cuối học kì II · Tự chấm điểm 🎯</p>
+    </div>
+
+</body>
+</html>

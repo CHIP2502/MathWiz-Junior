@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phiếu học tập ôn tập cuối học kì II - Đề 2</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --black:     #000000;
+            --white:     #FFFFFF;
+            --yellow:    #FFE500;
+            --pink:      #FF3CAC;
+            --green:     #00C853;
+            --blue:      #2979FF;
+            --orange:    #FF6D00;
+            --red:       #FF1744;
+            --bg:        #FFF9C4;
+            --shadow:    4px 4px 0px #000;
+            --shadow-lg: 6px 6px 0px #000;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Nunito', sans-serif; }
+        body {
+            background-color: var(--bg);
+            background-image: radial-gradient(circle, #000 1.5px, transparent 1.5px);
+            background-size: 28px 28px;
+            min-height: 100vh;
+            display: flex; justify-content: center; align-items: flex-start;
+            padding: 24px 12px;
+        }
+        #app {
+            background: var(--white); width: 100%; max-width: 860px;
+            border: 4px solid var(--black);
+            box-shadow: 10px 10px 0px var(--black);
+            display: flex; flex-direction: column;
+        }
+
+        /* TOP BAR */
+        .top-bar { background: var(--yellow); border-bottom: 4px solid var(--black); padding: 18px 24px 14px; text-align: center; }
+        .top-bar h1 { font-size: 26px; font-weight: 900; color: var(--black); text-transform: uppercase; letter-spacing: 1px; line-height: 1.3; }
+        .top-bar h1 span { color: var(--pink); }
+        .badges { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-top: 12px; }
+        .badge { border: 3px solid var(--black); box-shadow: var(--shadow); padding: 4px 12px; font-size: 13px; font-weight: 800; text-transform: uppercase; }
+        .badge.pink   { background: var(--pink);   color: var(--white); }
+        .badge.blue   { background: var(--blue);   color: var(--white); }
+        .badge.green  { background: var(--green);  color: var(--white); }
+        .badge.orange { background: var(--orange); color: var(--white); }
+
+        /* SCREENS */
+        .screen { display: none; padding: 28px 24px; animation: popIn .35s cubic-bezier(.34,1.56,.64,1); }
+        .screen.active { display: block; }
+        @keyframes popIn { from { opacity:0; transform:scale(.94) translateY(12px); } to { opacity:1; transform:scale(1) translateY(0); } }
+
+        .q-label { display: inline-block; background: var(--pink); color: var(--white); border: 3px solid var(--black); box-shadow: var(--shadow); font-size: 14px; font-weight: 900; text-transform: uppercase; padding: 4px 14px; margin-bottom: 10px; }
+        .q-title { font-size: 20px; font-weight: 900; color: var(--black); border-bottom: 3px solid var(--black); padding-bottom: 10px; margin-bottom: 16px; }
+        .q-hint  { font-size: 13px; font-style: italic; color: #555; margin-bottom: 14px; }
+
+        /* FORM */
+        .form-wrap { max-width: 420px; margin: 0 auto; }
+        .form-group { margin-bottom: 18px; }
+        .form-group label { display: block; font-weight: 900; font-size: 13px; text-transform: uppercase; letter-spacing: .5px; color: var(--black); margin-bottom: 6px; }
+        .form-group input { width: 100%; padding: 12px 14px; border: 3px solid var(--black); font-size: 16px; font-weight: 700; outline: none; box-shadow: var(--shadow); transition: box-shadow .15s; background: var(--white); }
+        .form-group input:focus { box-shadow: 6px 6px 0 var(--pink); }
+
+        /* BUTTONS */
+        .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 12px 28px; font-size: 16px; font-weight: 900; text-transform: uppercase; border: 3px solid var(--black); cursor: pointer; transition: all .12s; box-shadow: var(--shadow-lg); margin-top: 20px; }
+        .btn:hover  { transform: translate(-2px,-2px); box-shadow: 8px 8px 0 var(--black); }
+        .btn:active { transform: translate(4px,4px);   box-shadow: 0 0 0 var(--black); }
+        .btn-primary { background: var(--yellow); color: var(--black); }
+        .btn-success { background: var(--green);  color: var(--white); }
+        .btn-block   { width: 100%; }
+        .btn-center  { display: flex; justify-content: center; }
+
+        /* QUESTION BOX */
+        .question-box { border: 4px solid var(--black); box-shadow: var(--shadow-lg); padding: 20px; margin-bottom: 16px; background: var(--white); transition: background .3s; }
+        .question-box.correct { background: #CCFF90; }
+        .question-box.wrong   { background: #FFCDD2; }
+
+        /* MCQ */
+        .mcq-item { margin-bottom: 20px; }
+        .mcq-item > p { font-size: 15px; font-weight: 800; margin-bottom: 10px; line-height: 1.5; }
+        .mcq-options { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .mcq-options label { display: flex; align-items: center; gap: 10px; background: var(--white); border: 3px solid var(--black); box-shadow: var(--shadow); padding: 10px 12px; cursor: pointer; font-weight: 800; font-size: 14px; transition: all .12s; }
+        .mcq-options label:hover { background: var(--yellow); transform: translate(-2px,-2px); box-shadow: 6px 6px 0 var(--black); }
+        .mcq-options input[type="radio"] { transform: scale(1.4); accent-color: var(--pink); flex-shrink: 0; }
+
+        /* FILL IN BLANK */
+        .fill-group { margin-bottom: 16px; }
+        .fill-group p { font-size: 15px; font-weight: 800; margin-bottom: 8px; line-height: 1.6; }
+        .fill-input { display: inline-block; border: none; border-bottom: 3px solid var(--black); background: #fffde7; font-size: 15px; font-weight: 800; padding: 4px 8px; width: 140px; outline: none; text-align: center; vertical-align: middle; transition: border-color .2s; }
+        .fill-input:focus { border-bottom-color: var(--pink); }
+        .fill-input.correct-ans { background: #CCFF90; border-bottom-color: var(--green); }
+        .fill-input.wrong-ans   { background: #FFCDD2; border-bottom-color: var(--red); }
+
+        /* CALC ROWS */
+        .calc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 8px; }
+        .calc-item { background: #f9f9f9; border: 3px solid var(--black); box-shadow: var(--shadow); padding: 14px; }
+        .calc-item p { font-size: 15px; font-weight: 800; margin-bottom: 8px; }
+        .calc-item input { width: 100%; padding: 8px 10px; border: 3px solid var(--black); font-size: 14px; font-weight: 700; outline: none; background: var(--white); box-shadow: 2px 2px 0 #000; }
+        .calc-item input:focus { box-shadow: 4px 4px 0 var(--pink); }
+
+        /* STORY BOX */
+        .story-box { background: #E3F2FD; border: 3px solid var(--black); box-shadow: var(--shadow); padding: 14px 16px; font-size: 15px; font-weight: 700; margin-bottom: 16px; line-height: 1.8; }
+        .story-box b { color: var(--pink); }
+
+        /* TEXT AREA */
+        .solve-area { width: 100%; min-height: 90px; border: 3px solid var(--black); box-shadow: var(--shadow); font-size: 15px; font-weight: 700; padding: 10px; resize: vertical; background: var(--white); outline: none; }
+        .solve-area:focus { box-shadow: 5px 5px 0 var(--blue); }
+        .solve-label { font-size: 13px; font-weight: 900; text-transform: uppercase; color: var(--black); margin-bottom: 6px; display: block; margin-top: 12px; }
+
+        /* TRIANGLE PATTERN */
+        .triangle-box { display: flex; gap: 20px; justify-content: center; align-items: flex-end; margin: 16px 0; flex-wrap: wrap; }
+        .tri-group { text-align: center; }
+        .tri-group span { display: block; font-size: 12px; font-weight: 900; margin-bottom: 4px; background: var(--yellow); border: 2px solid var(--black); padding: 2px 8px; }
+        svg.tri { display: block; }
+
+        /* FEEDBACK */
+        .feedback-msg { text-align: center; font-weight: 900; font-size: 16px; min-height: 28px; margin-top: 6px; padding: 6px 0; }
+        .text-success { color: var(--green); }
+        .text-danger  { color: var(--red); }
+
+        /* PROGRESS */
+        .progress-strip { display: flex; border-bottom: 4px solid var(--black); background: var(--white); }
+        .progress-step  { flex: 1; text-align: center; padding: 8px 4px; font-size: 11px; font-weight: 900; text-transform: uppercase; border-right: 3px solid var(--black); color: #aaa; }
+        .progress-step:last-child { border-right: none; }
+        .progress-step.done   { background: var(--green);  color: var(--white); }
+        .progress-step.active { background: var(--yellow); color: var(--black); }
+
+        /* RESULT */
+        .result-screen   { padding: 32px 24px; text-align: center; }
+        .result-title    { font-size: 32px; font-weight: 900; text-transform: uppercase; background: var(--yellow); border: 4px solid var(--black); box-shadow: var(--shadow-lg); display: inline-block; padding: 8px 28px; margin-bottom: 20px; }
+        .result-info     { display: inline-flex; flex-direction: column; gap: 6px; border: 3px solid var(--black); box-shadow: var(--shadow); padding: 14px 28px; margin-bottom: 20px; text-align: left; background: var(--white); font-size: 16px; font-weight: 700; }
+        .result-info b   { color: var(--pink); }
+        .score-circle    { width: 160px; height: 160px; border-radius: 50%; background: var(--pink); color: var(--white); border: 5px solid var(--black); box-shadow: 8px 8px 0 var(--black); display: flex; align-items: center; justify-content: center; font-size: 46px; font-weight: 900; margin: 0 auto 20px; }
+        .score-circle .denom { font-size: 22px; }
+        .result-sub      { font-size: 16px; font-weight: 800; margin-bottom: 8px; }
+        .result-feedback { font-size: 26px; font-weight: 900; text-transform: uppercase; border: 4px solid var(--black); box-shadow: var(--shadow-lg); display: inline-block; padding: 8px 24px; margin-top: 10px; }
+
+        /* SECTION DIVIDER */
+        .section-tag { display: inline-block; background: var(--blue); color: var(--white); border: 3px solid var(--black); box-shadow: var(--shadow); font-size: 13px; font-weight: 900; padding: 3px 14px; margin-bottom: 14px; text-transform: uppercase; }
+    </style>
+</head>
+<body>
+<div id="app">
+
+    <!-- PROGRESS -->
+    <div class="progress-strip" id="progress-strip" style="display:none">
+        <div class="progress-step" id="ps1">P1: TN</div>
+        <div class="progress-step" id="ps2">P1: Bài 2</div>
+        <div class="progress-step" id="ps3">P2: Bài 1</div>
+        <div class="progress-step" id="ps4">P2: Bài 2</div>
+        <div class="progress-step" id="ps5">P2: Bài 3</div>
+        <div class="progress-step" id="ps6">P2: Bài 4</div>
+    </div>
+
+    <!-- TOP BAR -->
+    <div class="top-bar">
+        <h1>📚 Phiếu học tập<br><span>Ôn tập cuối học kì II – Đề 2</span></h1>
+        <div class="badges">
+            <span class="badge pink">Toán · Lớp 5</span>
+            <span class="badge blue">40 phút</span>
+            <span class="badge green">10 điểm</span>
+            <span class="badge orange">6 phần</span>
+        </div>
+    </div>
+
+    <!-- BẮT ĐẦU -->
+    <div id="screen-start" class="screen active">
+        <div class="form-wrap">
+            <div class="form-group">
+                <label>👤 Họ và Tên</label>
+                <input type="text" id="studentName" placeholder="Nhập họ tên của con..." autocomplete="off">
+            </div>
+            <div class="form-group">
+                <label>🏫 Lớp</label>
+                <input type="text" id="studentClass" placeholder="VD: 5A, 5A1, 5A2..." autocomplete="off">
+            </div>
+            <div class="btn-center">
+                <button class="btn btn-primary btn-block" onclick="startQuiz()">🚀 Bắt đầu làm bài!</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ══ PHẦN I – TRẮC NGHIỆM (Bài 1 – 7 câu MCQ) ══ -->
+    <div id="screen-p1b1" class="screen">
+        <span class="q-label">🔘 Phần I – Trắc nghiệm</span>
+        <div class="question-box" id="box-p1b1">
+            <div class="q-title">BÀI 1 — TRẮC NGHIỆM (3,5 điểm)</div>
+            <p class="q-hint">Mỗi câu đúng được 0,5 điểm. Chọn đáp án đúng nhất.</p>
+            <div id="p1b1-body"></div>
+        </div>
+        <div class="feedback-msg" id="msg-p1b1"></div>
+        <div class="btn-center">
+            <button class="btn btn-primary" id="btn-p1b1" onclick="checkP1B1()">Kiểm tra ➡️</button>
+        </div>
+    </div>
+
+    <!-- ══ PHẦN I – Bài 2: Điền chỗ trống ══ -->
+    <div id="screen-p1b2" class="screen">
+        <span class="q-label">✏️ Phần I – Bài 2</span>
+        <div class="question-box" id="box-p1b2">
+            <div class="q-title">BÀI 2 — ĐIỀN VÀO CHỖ TRỐNG (1 điểm)</div>
+            <p class="q-hint">Điền số thích hợp vào chỗ chấm (…)</p>
+            <div class="story-box">
+                🚢 Một chiếc thuyền máy có vận tốc thực khi nước lặng là <b>18,5 km/giờ</b>, chạy trên dòng sông có vận tốc dòng nước là <b>3,6 km/giờ</b>.
+            </div>
+            <div class="fill-group">
+                <p>Vận tốc của thuyền đi <b>xuôi dòng</b> là:
+                    <input class="fill-input" id="p1b2_a" type="text" placeholder="? km/giờ">
+                </p>
+            </div>
+            <div class="fill-group">
+                <p>Vận tốc của thuyền đi <b>ngược dòng</b> là:
+                    <input class="fill-input" id="p1b2_b" type="text" placeholder="? km/giờ">
+                </p>
+            </div>
+        </div>
+        <div class="feedback-msg" id="msg-p1b2"></div>
+        <div class="btn-center">
+            <button class="btn btn-primary" id="btn-p1b2" onclick="checkP1B2()">Kiểm tra ➡️</button>
+        </div>
+    </div>
+
+    <!-- ══ PHẦN II – Bài 1: Đổi đơn vị ══ -->
+    <div id="screen-p2b1" class="screen">
+        <span class="q-label">📐 Phần II – Bài 1</span>
+        <div class="question-box" id="box-p2b1">
+            <div class="q-title">BÀI 1 — ĐỔI SỐ ĐO (2 điểm)</div>
+            <p class="q-hint">Điền kết quả đúng vào ô. Mỗi câu đúng 0,5 điểm.</p>
+            <div class="calc-grid">
+                <div class="calc-item">
+                    <p>a) 5,6 m³ = <b>?</b> dm³</p>
+                    <input type="text" id="p2b1_a" placeholder="Kết quả...">
+                </div>
+                <div class="calc-item">
+                    <p>b) 5m³ 6dm³ = <b>?</b> m³</p>
+                    <input type="text" id="p2b1_b" placeholder="Kết quả...">
+                </div>
+                <div class="calc-item">
+                    <p>c) 75 phút = <b>?</b> giờ</p>
+                    <input type="text" id="p2b1_c" placeholder="Kết quả...">
+                </div>
+                <div class="calc-item">
+                    <p>d) 125 phút = <b>?</b> giờ <b>?</b> phút</p>
+                    <input type="text" id="p2b1_d" placeholder="VD: 2 giờ 5 phút">
+                </div>
+            </div>
+        </div>
+        <div class="feedback-msg" id="msg-p2b1"></div>
+        <div class="btn-center">
+            <button class="btn btn-primary" id="btn-p2b1" onclick="checkP2B1()">Kiểm tra ➡️</button>
+        </div>
+    </div>
+
+    <!-- ══ PHẦN II – Bài 2: Tính ══ -->
+    <div id="screen-p2b2" class="screen">
+        <span class="q-label">🔢 Phần II – Bài 2</span>
+        <div class="question-box" id="box-p2b2">
+            <div class="q-title">BÀI 2 — ĐẶT TÍNH RỒI TÍNH (2 điểm)</div>
+            <p class="q-hint">Mỗi câu đúng 0,5 điểm. Ghi kết quả cuối vào ô.</p>
+            <div class="calc-grid">
+                <div class="calc-item">
+                    <p>a) 3 giờ 24 phút + 9 giờ 58 phút</p>
+                    <input type="text" id="p2b2_a" placeholder="VD: 13 giờ 22 phút">
+                </div>
+                <div class="calc-item">
+                    <p>b) 6 giờ 35 phút – 2 giờ 44 phút</p>
+                    <input type="text" id="p2b2_b" placeholder="VD: 3 giờ 51 phút">
+                </div>
+                <div class="calc-item">
+                    <p>c) 3 ngày 5 giờ × 5</p>
+                    <input type="text" id="p2b2_c" placeholder="VD: 16 ngày 1 giờ">
+                </div>
+                <div class="calc-item">
+                    <p>d) 56 phút 24 giây ÷ 6</p>
+                    <input type="text" id="p2b2_d" placeholder="VD: 9 phút 24 giây">
+                </div>
+            </div>
+        </div>
+        <div class="feedback-msg" id="msg-p2b2"></div>
+        <div class="btn-center">
+            <button class="btn btn-primary" id="btn-p2b2" onclick="checkP2B2()">Kiểm tra ➡️</button>
+        </div>
+    </div>
+
+    <!-- ══ PHẦN II – Bài 3: Tình huống ô tô ══ -->
+    <div id="screen-p2b3" class="screen">
+        <span class="q-label">🚗 Phần II – Bài 3</span>
+        <div class="question-box" id="box-p2b3">
+            <div class="q-title">BÀI 3 — TÌNH HUỐNG (2 điểm)</div>
+            <div class="story-box">
+                🚗 Một ô tô đi từ tỉnh A lúc <b>7 giờ 30 phút</b> và đến tỉnh B lúc <b>9 giờ</b>.<br>
+                Biết quãng đường AB dài <b>90 km</b>.<br><br>
+                🏍️ Nếu một xe máy xuất phát từ A lúc <b>7 giờ</b>, đi với vận tốc <b>36 km/giờ</b> thì mấy giờ ô tô trên đuổi kịp xe máy?
+            </div>
+            <span class="solve-label">a) Tính vận tốc của ô tô:</span>
+            <input type="text" id="p2b3_a" class="solve-area" style="min-height:44px" placeholder="Kết quả: ? km/giờ">
+            <span class="solve-label">b) Ô tô đuổi kịp xe máy lúc mấy giờ?</span>
+            <input type="text" id="p2b3_b" class="solve-area" style="min-height:44px" placeholder="Đáp số: ? giờ ? phút">
+        </div>
+        <div class="feedback-msg" id="msg-p2b3"></div>
+        <div class="btn-center">
+            <button class="btn btn-primary" id="btn-p2b3" onclick="checkP2B3()">Kiểm tra ➡️</button>
+        </div>
+    </div>
+
+    <!-- ══ PHẦN II – Bài 4: Tam giác ══ -->
+    <div id="screen-p2b4" class="screen">
+        <span class="q-label">🔺 Phần II – Bài 4</span>
+        <div class="question-box" id="box-p2b4">
+            <div class="q-title">BÀI 4 — QUY LUẬT TAM GIÁC (0,5 điểm)</div>
+            <p class="q-hint">Quan sát hình tam giác theo quy luật rồi điền vào chỗ chấm.</p>
+
+            <!-- Hình minh hoạ quy luật tam giác -->
+            <!-- Thay thế toàn bộ phần triangle-box trong screen-p2b4 -->
+<div class="triangle-box">
+    <!-- LẦN 1 -->
+    <div class="tri-group">
+        <span>Lần 1</span>
+        <svg class="tri" width="100" height="90" viewBox="0 0 100 90">
+            <polygon points="50,5 5,85 95,85"
+                     fill="none" stroke="#000" stroke-width="3"/>
+        </svg>
+    </div>
+
+    <!-- LẦN 2: nối trung điểm 3 cạnh → 4 tam giác -->
+    <div class="tri-group">
+        <span>Lần 2</span>
+        <svg class="tri" width="100" height="90" viewBox="0 0 100 90">
+            <polygon points="50,5 5,85 95,85"
+                     fill="none" stroke="#000" stroke-width="3"/>
+            <!-- Nối 3 trung điểm -->
+            <line x1="27" y1="45" x2="72" y2="45" stroke="#FF3CAC" stroke-width="2"/>
+            <line x1="27" y1="45" x2="50" y2="85" stroke="#FF3CAC" stroke-width="2"/>
+            <line x1="72" y1="45" x2="50" y2="85" stroke="#FF3CAC" stroke-width="2"/>
+            <!-- Chấm đỏ -->
+            <circle cx="27" cy="45" r="4" fill="#FF1744"/>
+            <circle cx="72" cy="45" r="4" fill="#FF1744"/>
+            <circle cx="50" cy="85" r="4" fill="#FF1744"/>
+        </svg>
+    </div>
+
+<div class="tri-group">
+    <span>Lần 3</span>
+    <svg class="tri" width="100" height="90" viewBox="0 0 100 90">
+        <polygon points="50,5 5,85 95,85" fill="none" stroke="#000" stroke-width="3"/>
+
+        <line x1="27" y1="45" x2="72" y2="45" stroke="#000" stroke-width="2"/>
+        <line x1="27" y1="45" x2="50" y2="85" stroke="#000" stroke-width="2"/>
+        <line x1="72" y1="45" x2="50" y2="85" stroke="#000" stroke-width="2"/>
+        <line x1="49" y1="45" x2="38" y2="65" stroke="#FF3CAC" stroke-width="2"/>
+        <line x1="49" y1="45" x2="61" y2="65" stroke="#FF3CAC" stroke-width="2"/>
+        <line x1="38" y1="65" x2="61" y2="65" stroke="#FF3CAC" stroke-width="2"/>
+
+        <circle cx="27" cy="45" r="3" fill="#FF1744"/>
+        <circle cx="72" cy="45" r="3" fill="#FF1744"/>
+        <circle cx="50" cy="85" r="3" fill="#FF1744"/>
+        <circle cx="49" cy="45" r="3" fill="#FF1744"/>
+        <circle cx="38" cy="65" r="3" fill="#FF1744"/>
+        <circle cx="61" cy="65" r="3" fill="#FF1744"/>
+    </svg>
+</div>
+</div>
+
+            <div class="fill-group">
+                <p>a) Nếu cứ vẽ như vậy đến <b>lần thứ 5</b> thì trong hình sẽ có tất cả
+                    <input class="fill-input" id="p2b4_a" type="text" placeholder="? hình">
+                    hình tam giác.
+                </p>
+            </div>
+            <div class="fill-group">
+                <p>b) Muốn trong hình có <b>81 hình tam giác</b> thì phải vẽ đến lần thứ
+                    <input class="fill-input" id="p2b4_b" type="text" placeholder="?">
+                </p>
+            </div>
+        </div>
+        <div class="feedback-msg" id="msg-p2b4"></div>
+        <div class="btn-center">
+            <button class="btn btn-primary" id="btn-p2b4" onclick="checkP2B4()">🏆 Chấm điểm!</button>
+        </div>
+    </div>
+
+    <!-- KẾT QUẢ -->
+    <div id="screen-result" class="screen result-screen">
+        <div class="result-title">🎉 Hoàn thành! 🎉</div>
+        <div class="result-info">
+            <span>👤 Họ tên: <b id="resName"></b></span>
+            <span>🏫 Lớp: <b id="resClass"></b></span>
+        </div>
+        <div class="score-circle">
+            <span id="resTotal"></span><span class="denom">/10</span>
+        </div>
+        <p class="result-sub">Số phần đúng ngay lần đầu: <b id="resPerfect"></b> / 6</p>
+        <div class="result-feedback" id="resFeedback"></div>
+    </div>
+
+</div>
+
+<script>
+// ═══════════════════════
+//  HELPER
+// ═══════════════════════
+function shuffle(arr) {
+    const a = [...arr];
+    for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+}
+function toLabel(i) { return String.fromCharCode(65 + i); }
+function norm(s) { return s.trim().toLowerCase().replace(/\s+/g,' '); }
+
+// ═══════════════════════
+//  STATE
+// ═══════════════════════
+const state = {
+    scores:         { p1b1:0, p1b2:0, p2b1:0, p2b2:0, p2b3:0, p2b4:0 },
+    isFirstAttempt: { p1b1:true, p1b2:true, p2b1:true, p2b2:true, p2b3:true, p2b4:true },
+    perfectCount: 0
+};
+
+// ═══════════════════════
+//  DỮ LIỆU P1 BÀI 1 (7 câu MCQ)
+// ═══════════════════════
+const P1B1_ITEMS = [
+    {
+        id:'q1', text:'Câu 1. Số thích hợp để điền vào chỗ chấm 3,03 m³ = … lít là:',
+        options:['30,3', '303', '3003', '3030'],
+        correctText:'3030'
+    },
+    {
+        id:'q2', text:'Câu 2. Biết 75% của một số là 195. Vậy 5% của số đó là:',
+        options:['13', '15', '5', '0,75'],   // ← bỏ "A." "B." "C." "D." ra
+        correctText:'13'                      // ← đáp án đúng theo đề là 13
+    },
+    {
+        id:'q3', text:'Câu 3. Khoảng thời gian từ 9 giờ kém 15 phút đến 9 giờ 20 phút là:',
+        options:['15 phút', '25 phút', '35 phút', '45 phút'],
+        correctText:'35 phút'
+    },
+    {
+        id:'q4', text:'Câu 4. Cùng lúc, một ô tô đi từ A đến B với vận tốc 45km/giờ và một xe máy đi từ B về A với vận tốc 35km/giờ. Sau 2 giờ 30 phút hai xe gặp nhau. Quãng đường AB dài bao nhiêu?',
+        options:['200km', '25km', '270km', '105km'],
+        correctText:'200km'
+    },
+    {
+        id:'q5', text:'Câu 5. Bể cá dạng hình hộp chữ nhật có các kích thước: 80cm; 50cm; 60cm. Bể cá đó có thể chứa được số lít nước là:',
+        options:['240000 lít', '2400 lít', '240 lít', '24 lít'],
+        correctText:'240 lít'
+    },
+    {
+        id:'q6', text:'Câu 6. Một rubic hình lập phương có thể tích là 27cm³ thì cạnh rubic đó là bao nhiêu xăng-ti-mét?',
+        options:['6cm', '3cm', '9cm', 'Đáp án khác'],
+        correctText:'3cm'
+    },
+    {
+        id:'q7', text:'Câu 7. 1,25 giờ bằng:',
+        options:['1 giờ 25 phút', '1 giờ 5 phút', '1 giờ 15 phút', '1 giờ 10 phút'],
+        correctText:'1 giờ 15 phút'
+    },
+];
+
+// ═══════════════════════
+//  BUILD P1 BÀI 1
+// ═══════════════════════
+function buildP1B1() {
+    const body = document.getElementById('p1b1-body');
+    body.innerHTML = '';
+    P1B1_ITEMS.forEach(item => {
+        const shuffled = shuffle([...item.options]);
+        const div = document.createElement('div');
+        div.className = 'mcq-item';
+        let html = `<p>${item.text}</p><div class="mcq-options">`;
+        shuffled.forEach((optText, i) => {
+            html += `<label>
+                <input type="radio" name="${item.id}" value="${optText}">
+                ${toLabel(i)}. ${optText}
+            </label>`;
+        });
+        html += '</div>';
+        div.innerHTML = html;
+        body.appendChild(div);
+    });
+}
+
+// ═══════════════════════
+//  PROGRESS
+// ═══════════════════════
+const STEPS = ['p1b1','p1b2','p2b1','p2b2','p2b3','p2b4'];
+function updateProgress(activeQ) {
+    document.getElementById('progress-strip').style.display = 'flex';
+    const idx = STEPS.indexOf(activeQ);
+    STEPS.forEach((q, i) => {
+        const el = document.getElementById('ps' + (i + 1));
+        el.classList.remove('done', 'active');
+        if (i < idx)   el.classList.add('done');
+        if (i === idx) el.classList.add('active');
+    });
+}
+
+// ════════════���══════════
+//  SCREEN
+// ═══════════════════════
+function showScreen(id) {
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    const qMap = {
+        'screen-p1b1':'p1b1','screen-p1b2':'p1b2',
+        'screen-p2b1':'p2b1','screen-p2b2':'p2b2',
+        'screen-p2b3':'p2b3','screen-p2b4':'p2b4'
+    };
+    if (qMap[id]) updateProgress(qMap[id]);
+    if (id === 'screen-result') document.getElementById('progress-strip').style.display = 'none';
+}
+
+// ═══════════════════════
+//  START
+// ═══════════════════════
+function startQuiz() {
+    const name = document.getElementById('studentName').value.trim();
+    const cls  = document.getElementById('studentClass').value.trim();
+    if (!name) { alert('Con hãy nhập Họ Tên nhé! 😊'); return; }
+    if (!cls)  { alert('Con hãy nhập Lớp nhé! 😊'); return; }
+    document.getElementById('resName').innerText  = name;
+    document.getElementById('resClass').innerText = cls.toUpperCase();
+    buildP1B1();
+    showScreen('screen-p1b1');
+}
+
+// ═══════════════════════
+//  FEEDBACK
+// ═══════════════════════
+function showFeedback(q, ok, msg) {
+    const box = document.getElementById('box-' + q);
+    box.classList.remove('correct', 'wrong');
+    box.classList.add(ok ? 'correct' : 'wrong');
+    const el = document.getElementById('msg-' + q);
+    el.className = 'feedback-msg ' + (ok ? 'text-success' : 'text-danger');
+    el.innerText = msg;
+}
+function advanceBtn(btnId, label, nextFn) {
+    const btn = document.getElementById(btnId);
+    btn.innerText = label;
+    btn.classList.add('btn-success');
+    btn.onclick = nextFn;
+}
+
+// ═══════════════════════
+//  CHECK P1 BÀI 1 (MCQ)
+// ═══════════════════════
+function checkP1B1() {
+    let correct = 0, answered = 0;
+    P1B1_ITEMS.forEach(item => {
+        const s = document.querySelector(`input[name="${item.id}"]:checked`);
+        if (s) { answered++; if (s.value === item.correctText) correct++; }
+    });
+    if (answered < P1B1_ITEMS.length) { showFeedback('p1b1', false, `Chọn hết 7 câu nhé! (Đã chọn ${answered}/7) 📝`); return; }
+    if (state.isFirstAttempt.p1b1) {
+        state.scores.p1b1 = correct * 0.5;
+        if (correct === 7) state.perfectCount++;
+        state.isFirstAttempt.p1b1 = false;
+    }
+    if (correct === 7) {
+        showFeedback('p1b1', true, '🎉 Xuất sắc! 7/7 câu đúng!');
+        advanceBtn('btn-p1b1', 'Sang Bài 2 ➡️', () => showScreen('screen-p1b2'));
+    } else {
+        showFeedback('p1b1', false, `Đúng ${correct}/7 — kiểm tra lại nhé! 💪`);
+    }
+}
+
+// ═══════════════════════
+//  CHECK P1 BÀI 2 (xuôi/ngược dòng)
+// ═══════════════════════
+function checkP1B2() {
+    const va = norm(document.getElementById('p1b2_a').value); // xuôi: 22,1
+    const vb = norm(document.getElementById('p1b2_b').value); // ngược: 14,9
+    if (!va || !vb) { showFeedback('p1b2', false, 'Điền cả 2 ô nhé! 📝'); return; }
+    const okA = /22[,.]1/.test(va);
+    const okB = /14[,.]9/.test(vb);
+    const correct = (okA ? 1 : 0) + (okB ? 1 : 0);
+    if (state.isFirstAttempt.p1b2) {
+        state.scores.p1b2 = correct * 0.5;
+        if (correct === 2) state.perfectCount++;
+        state.isFirstAttempt.p1b2 = false;
+    }
+    if (okA && okB) {
+        showFeedback('p1b2', true, '🎉 Đúng cả hai! (22,1 km/giờ và 14,9 km/giờ)');
+        advanceBtn('btn-p1b2', 'Sang Phần II ➡️', () => showScreen('screen-p2b1'));
+    } else {
+        showFeedback('p1b2', false, `Đúng ${correct}/2 — Gợi ý: Xuôi = 18,5 + 3,6 · Ngược = 18,5 − 3,6 💡`);
+    }
+}
+
+// ═══════════════════════
+//  CHECK P2 BÀI 1 (đổi đơn vị)
+// ═══════════════════════
+// ── THAY HÀM checkP2B1 ──
+// Chấp nhận nhiều cách viết hơn cho từng ô
+function checkP2B1() {
+    const va = norm(document.getElementById('p2b1_a').value);
+    const vb = norm(document.getElementById('p2b1_b').value);
+    const vc = norm(document.getElementById('p2b1_c').value);
+    const vd = norm(document.getElementById('p2b1_d').value);
+
+    if (!va || !vb || !vc || !vd) { showFeedback('p2b1', false, 'Điền đủ cả 4 ô nhé! 📝'); return; }
+
+    // a) 5,6 m³ = 5600 dm³
+    const okA = /^5600$/.test(va.replace(/\s/g,''));
+
+    // b) 5m³ 6dm³ = 5,006 m³  — chấp nhận: 5,006 / 5.006 / 5m³6dm³ / 5 m3 6 dm3
+    const okB = /5[,.]006/.test(vb) || /5\s*m[³3]\s*6\s*dm[³3]/.test(vb);
+
+    // c) 75 phút = 1,25 giờ — chấp nhận: 1,25 / 1.25 / 1 giờ 15 phút / 1h15 / 1g15
+    const okC = /1[,.]25/.test(vc)
+             || /1\s*(giờ|h|g)\s*15\s*(phút|p)?/.test(vc);
+
+    // d) 125 phút = 2 giờ 5 phút — chấp nhận: 2 giờ 5 phút / 2h5 / 2g5p / 2 giờ 5p
+    const okD = /2\s*(giờ|h|g)\s*5\s*(phút|p)?/.test(vd)
+             || /^2[,.]08/.test(vd.replace(/\s/g,''));
+
+    const correct = [okA, okB, okC, okD].filter(Boolean).length;
+
+    if (state.isFirstAttempt.p2b1) {
+        state.scores.p2b1 = correct * 0.5;
+        if (correct === 4) state.perfectCount++;
+        state.isFirstAttempt.p2b1 = false;
+    }
+    if (correct === 4) {
+        showFeedback('p2b1', true, '🎉 Đúng hết 4/4!');
+        advanceBtn('btn-p2b1', 'Sang Bài 2 ➡️', () => showScreen('screen-p2b2'));
+    } else {
+        const hints = ['5600 dm³', '5,006 m³', '1,25 giờ (hoặc 1 giờ 15 phút)', '2 giờ 5 phút'];
+        const wrongs = ['a','b','c','d'].filter((_,i) => ![okA,okB,okC,okD][i]);
+        showFeedback('p2b1', false,
+            `Đúng ${correct}/4 — Sai ô: ${wrongs.join(', ')} 💡 Đáp án: ${hints.join(' · ')}`);
+    }
+}
+
+// ═══════════════════════
+//  CHECK P2 BÀI 2 (tính thời gian)
+// ═══════════════════════
+function checkP2B2() {
+    const va = norm(document.getElementById('p2b2_a').value);
+    const vb = norm(document.getElementById('p2b2_b').value);
+    const vc = norm(document.getElementById('p2b2_c').value);
+    const vd = norm(document.getElementById('p2b2_d').value);
+
+    if (!va || !vb || !vc || !vd) { showFeedback('p2b2', false, 'Điền đủ cả 4 ô nhé! 📝'); return; }
+
+    // a) 3g24p + 9g58p = 13 giờ 22 phút
+    // chấp nhận: 13 giờ 22 phút / 13g22p / 13h22 / 13:22 / 13g22
+    const okA = /13\s*(giờ|h|g|:)\s*22\s*(phút|p|ph)?/.test(va)
+             || /^13[,.]3[67]/.test(va.replace(/\s/g,''));
+
+    // b) 6g35p - 2g44p = 3 giờ 51 phút
+    const okB = /3\s*(giờ|h|g|:)\s*51\s*(phút|p|ph)?/.test(vb);
+
+    // c) 3 ngày 5 giờ × 5 = 16 ngày 1 giờ
+    // chấp nhận: 16 ngày 1 giờ / 16n1g / 16d1h / 16ng1g
+    const okC = /16\s*(ngày|n|ng|d)\s*1\s*(giờ|g|h)/.test(vc);
+
+    // d) 56 phút 24 giây ÷ 6 = 9 phút 24 giây
+    // chấp nhận: 9 phút 24 giây / 9p24s / 9ph24g / 9p 24g
+    const okD = /9\s*(phút|p|ph)\s*24\s*(giây|s|g|gy)?/.test(vd);
+
+    const correct = [okA, okB, okC, okD].filter(Boolean).length;
+    if (state.isFirstAttempt.p2b2) {
+        state.scores.p2b2 = correct * 0.5;
+        if (correct === 4) state.perfectCount++;
+        state.isFirstAttempt.p2b2 = false;
+    }
+    if (correct === 4) {
+        showFeedback('p2b2', true, '🎉 Đúng hết 4/4!');
+        advanceBtn('btn-p2b2', 'Sang Bài 3 ➡️', () => showScreen('screen-p2b3'));
+    } else {
+        const hints = ['13 giờ 22 phút', '3 giờ 51 phút', '16 ngày 1 giờ', '9 phút 24 giây'];
+        const wrongs = ['a','b','c','d'].filter((_,i) => ![okA,okB,okC,okD][i]);
+        showFeedback('p2b2', false,
+            `Đúng ${correct}/4 — Sai ô: ${wrongs.join(', ')} 💡 Đáp án: ${hints.join(' · ')}`);
+    }
+}
+
+// ═══════════════════════
+//  CHECK P2 BÀI 3 (ô tô, xe máy)
+// ═══════════════════════
+function checkP2B3() {
+    const va = norm(document.getElementById('p2b3_a').value);
+    const vb = norm(document.getElementById('p2b3_b').value);
+
+    if (!va || !vb) { showFeedback('p2b3', false, 'Điền đủ cả 2 ô nhé! 📝'); return; }
+
+    // a) Vận tốc ô tô = 60 km/giờ
+    // chấp nhận: 60 / 60km/h / 60km/giờ / 60 km/g / vt=60 ...
+    const okA = /\b60\b/.test(va);
+
+    // b) Ô tô đuổi k���p lúc 8 giờ 15 phút
+    // chấp nhận: 8 giờ 15 phút / 8g15p / 8h15 / 8:15 / 8g15
+    const okB = /8\s*(giờ|h|g|:)\s*15\s*(phút|p|ph)?/.test(vb);
+
+    const correct = (okA ? 1 : 0) + (okB ? 1 : 0);
+    if (state.isFirstAttempt.p2b3) {
+        state.scores.p2b3 = correct * 0.5;
+        if (correct === 2) state.perfectCount++;
+        state.isFirstAttempt.p2b3 = false;
+    }
+    if (okA && okB) {
+        showFeedback('p2b3', true, '🎉 Chính xác! (60 km/giờ · 8 giờ 15 phút)');
+        advanceBtn('btn-p2b3', 'Sang Bài 4 ➡️', () => showScreen('screen-p2b4'));
+    } else {
+        showFeedback('p2b3', false,
+            `Đúng ${correct}/2 — Gợi ý: a) 90÷1,5=60 km/giờ · b) 8 giờ 15 phút 💡`);
+    }
+}
+
+// ═══════════════════════
+//  CHECK P2 BÀI 4 (tam giác)
+//  Quy luật: Lần n có (3^n - 1)/2 + 1 ... thực ra:
+//  L1=1, L2=4, L3=13, L4=40, L5=121
+//  Số TG = (3^n + 1) / 2  → L1=2/2? 
+//  Thực tế theo đáp án đề: L5=121 hình, 81 hình = lần 4 (nhưng đề cho đáp án 17 và lần 21)
+//  Theo đáp án gốc: a) 17 hình · b) lần 21
+//  Quy luật: mỗi lần thêm: +3, +9, +27... → tổng lần n = 1+3+9+...+3^(n-1) = (3^n - 1)/2
+//  Lần 1:1, Lần2:1+3=4, Lần3:4+9=13, Lần4:13+27=40, Lần5:40+81=121
+//  Đáp án đề: a)17 (có thể đếm khác), b) lần 21 → dùng đáp án của đề
+// ═══════════════════════
+function checkP2B4() {
+    const va = norm(document.getElementById('p2b4_a').value);
+    const vb = norm(document.getElementById('p2b4_b').value);
+
+    if (!va || !vb) { showFeedback('p2b4', false, 'Điền đủ cả 2 ô nhé! 📝'); return; }
+
+    // Theo đáp án đề gốc: a) 17 hình · b) lần 21
+    const okA = /\b17\b/.test(va);
+    const okB = /\b21\b/.test(vb);
+
+    const correct = (okA ? 1 : 0) + (okB ? 1 : 0);
+    if (state.isFirstAttempt.p2b4) {
+        state.scores.p2b4 = correct * 0.25;
+        if (correct === 2) state.perfectCount++;
+        state.isFirstAttempt.p2b4 = false;
+    }
+    if (okA && okB) {
+        showFeedback('p2b4', true, '🎉 Chính xác! (17 hình · lần 21)');
+        setTimeout(finishQuiz, 900);
+    } else {
+        showFeedback('p2b4', false, `Đúng ${correct}/2 — Gợi ý: a) 17 hình tam giác · b) lần thứ 21 💡`);
+    }
+}
+
+// ═══════════════════════
+//  FINISH
+// ═══════════════════════
+function finishQuiz() {
+    // Tổng điểm tối đa: 3,5 + 1 + 2 + 2 + 1 + 0,5 = 10
+    let total = Object.values(state.scores).reduce((a, b) => a + b, 0);
+    total = Math.round(total * 10) / 10;
+    const pct = (total / 10) * 100;
+    document.getElementById('resTotal').innerText   = total;
+    document.getElementById('resPerfect').innerText = state.perfectCount;
+    const fb = document.getElementById('resFeedback');
+    if      (pct >= 90) { fb.innerText = '⭐ Xuất sắc!';        fb.style.background = '#FFE500'; fb.style.color = '#000'; }
+    else if (pct >= 70) { fb.innerText = '👍 Tốt lắm!';         fb.style.background = '#00C853'; fb.style.color = '#fff'; }
+    else if (pct >= 50) { fb.innerText = '💪 Cần luyện thêm!';  fb.style.background = '#FF6D00'; fb.style.color = '#fff'; }
+    else                { fb.innerText = '📖 Xem lại bài nhé!'; fb.style.background = '#FF1744'; fb.style.color = '#fff'; }
+    showScreen('screen-result');
+}
+</script>
+</body>
+</html>

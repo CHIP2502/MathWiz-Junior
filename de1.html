@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phiếu học tập ôn tập cuối học kì II - Đề 1</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --black:     #000000;
+            --white:     #FFFFFF;
+            --yellow:    #FFE500;
+            --pink:      #FF3CAC;
+            --green:     #00C853;
+            --blue:      #2979FF;
+            --orange:    #FF6D00;
+            --red:       #FF1744;
+            --bg:        #FFF9C4;
+            --shadow:    4px 4px 0px #000;
+            --shadow-lg: 6px 6px 0px #000;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Nunito', sans-serif; }
+        body {
+            background-color: var(--bg);
+            background-image: radial-gradient(circle, #000 1.5px, transparent 1.5px);
+            background-size: 28px 28px;
+            min-height: 100vh;
+            display: flex; justify-content: center; align-items: flex-start;
+            padding: 24px 12px;
+        }
+        #app {
+            background: var(--white); width: 100%; max-width: 860px;
+            border: 4px solid var(--black);
+            box-shadow: 10px 10px 0px var(--black);
+            display: flex; flex-direction: column;
+        }
+
+        /* TOP BAR */
+        .top-bar { background: var(--yellow); border-bottom: 4px solid var(--black); padding: 18px 24px 14px; text-align: center; }
+        .top-bar h1 { font-size: 26px; font-weight: 900; color: var(--black); text-transform: uppercase; letter-spacing: 1px; line-height: 1.3; }
+        .top-bar h1 span { color: var(--pink); }
+        .badges { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-top: 12px; }
+        .badge { border: 3px solid var(--black); box-shadow: var(--shadow); padding: 4px 12px; font-size: 13px; font-weight: 800; text-transform: uppercase; }
+        .badge.pink   { background: var(--pink);   color: var(--white); }
+        .badge.blue   { background: var(--blue);   color: var(--white); }
+        .badge.green  { background: var(--green);  color: var(--white); }
+        .badge.orange { background: var(--orange); color: var(--white); }
+
+        /* SCREENS */
+        .screen { display: none; padding: 28px 24px; animation: popIn .35s cubic-bezier(.34,1.56,.64,1); }
+        .screen.active { display: block; }
+        @keyframes popIn { from { opacity:0; transform:scale(.94) translateY(12px); } to { opacity:1; transform:scale(1) translateY(0); } }
+
+        /* LABELS */
+        .q-label { display: inline-block; background: var(--pink); color: var(--white); border: 3px solid var(--black); box-shadow: var(--shadow); font-size: 14px; font-weight: 900; text-transform: uppercase; padding: 4px 14px; margin-bottom: 10px; }
+        .q-title { font-size: 20px; font-weight: 900; color: var(--black); border-bottom: 3px solid var(--black); padding-bottom: 10px; margin-bottom: 16px; }
+        .q-hint  { font-size: 13px; font-style: italic; color: #555; margin-bottom: 14px; }
+
+        /* FORM */
+        .form-wrap { max-width: 420px; margin: 0 auto; }
+        .form-group { margin-bottom: 18px; }
+        .form-group label { display: block; font-weight: 900; font-size: 13px; text-transform: uppercase; letter-spacing: .5px; color: var(--black); margin-bottom: 6px; }
+        .form-group input { width: 100%; padding: 12px 14px; border: 3px solid var(--black); font-size: 16px; font-weight: 700; outline: none; box-shadow: var(--shadow); transition: box-shadow .15s; background: var(--white); }
+        .form-group input:focus { box-shadow: 6px 6px 0 var(--pink); }
+
+        /* BUTTONS */
+        .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 12px 28px; font-size: 16px; font-weight: 900; text-transform: uppercase; border: 3px solid var(--black); cursor: pointer; transition: all .12s; box-shadow: var(--shadow-lg); margin-top: 20px; }
+        .btn:hover  { transform: translate(-2px,-2px); box-shadow: 8px 8px 0 var(--black); }
+        .btn:active { transform: translate(4px,4px);   box-shadow: 0 0 0 var(--black); }
+        .btn-primary { background: var(--yellow); color: var(--black); }
+        .btn-success { background: var(--green);  color: var(--white); }
+        .btn-block   { width: 100%; }
+        .btn-center  { display: flex; justify-content: center; }
+
+        /* QUESTION BOX */
+        .question-box { border: 4px solid var(--black); box-shadow: var(--shadow-lg); padding: 20px; margin-bottom: 16px; background: var(--white); transition: background .3s; }
+        .question-box.correct { background: #CCFF90; }
+        .question-box.wrong   { background: #FFCDD2; }
+
+        /* WORD BANK */
+        .word-bank { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 18px; justify-content: center; }
+        .word { background: var(--yellow); color: var(--black); border: 3px solid var(--black); box-shadow: var(--shadow); padding: 8px 16px; font-size: 15px; font-weight: 800; cursor: pointer; transition: all .12s; }
+        .word:hover    { transform: translate(-2px,-2px); box-shadow: 6px 6px 0 var(--black); }
+        .word:active   { transform: translate(2px,2px);   box-shadow: 0 0 0 var(--black); }
+        .word.selected { background: var(--pink); color: var(--white); transform: translate(-2px,-2px); box-shadow: 6px 6px 0 var(--black); }
+        .word.used     { opacity: .4; pointer-events: none; }
+
+        .drop-zone-container { font-size: 17px; line-height: 2.6; font-weight: 700; }
+        .drop-slot { display: inline-block; min-width: 90px; height: 36px; border: 3px dashed var(--black); background: #fffde7; vertical-align: middle; text-align: center; font-size: 14px; font-weight: 800; line-height: 30px; cursor: pointer; margin: 0 6px; transition: background .15s; }
+        .drop-slot:hover  { background: var(--yellow); }
+        .drop-slot.filled { background: var(--blue); color: var(--white); border-style: solid; }
+
+        /* MATCHING */
+        .match-container { display: flex; justify-content: space-between; position: relative; margin-top: 16px; gap: 10px; }
+        .match-col { display: flex; flex-direction: column; gap: 14px; width: 42%; z-index: 2; }
+        .match-item { background: var(--white); border: 3px solid var(--black); box-shadow: var(--shadow); padding: 11px 10px; text-align: center; cursor: pointer; font-weight: 800; font-size: 14px; transition: all .12s; }
+        .match-item:hover    { transform: translate(-2px,-2px); box-shadow: 6px 6px 0 var(--black); }
+        .match-item.selected { background: var(--yellow); transform: translate(-2px,-2px); box-shadow: 6px 6px 0 var(--black); }
+        .match-item.paired   { background: #CCFF90; border-color: var(--green); box-shadow: 4px 4px 0 var(--green); }
+        #svg-layer, #svg-layer-q4 { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none; }
+
+        /* MCQ */
+        .mcq-item { margin-bottom: 18px; }
+        .mcq-item > p { font-size: 16px; font-weight: 800; margin-bottom: 10px; }
+        .mcq-options { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .mcq-options label { display: flex; align-items: center; gap: 10px; background: var(--white); border: 3px solid var(--black); box-shadow: var(--shadow); padding: 10px 12px; cursor: pointer; font-weight: 800; font-size: 15px; transition: all .12s; }
+        .mcq-options label:hover { background: var(--yellow); transform: translate(-2px,-2px); box-shadow: 6px 6px 0 var(--black); }
+        .mcq-options input[type="radio"] { transform: scale(1.4); accent-color: var(--pink); flex-shrink: 0; }
+
+        /* Q5 */
+        .story-box { background: #E3F2FD; border: 3px solid var(--black); box-shadow: var(--shadow); padding: 14px 16px; font-size: 16px; font-weight: 700; margin-bottom: 18px; line-height: 1.7; }
+        .text-input-group { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+        .text-input-group label { width: 110px; font-size: 14px; font-weight: 900; text-transform: uppercase; color: var(--black); flex-shrink: 0; }
+        .text-input-group input { flex: 1; padding: 10px 12px; border: 3px solid var(--black); font-size: 15px; font-weight: 700; outline: none; box-shadow: var(--shadow); background: var(--white); }
+        .text-input-group input:focus { box-shadow: 5px 5px 0 var(--blue); }
+
+        /* FEEDBACK */
+        .feedback-msg { text-align: center; font-weight: 900; font-size: 16px; min-height: 28px; margin-top: 6px; padding: 6px 0; }
+        .text-success { color: var(--green); }
+        .text-danger  { color: var(--red); }
+
+        /* PROGRESS */
+        .progress-strip { display: flex; border-bottom: 4px solid var(--black); background: var(--white); }
+        .progress-step  { flex: 1; text-align: center; padding: 8px 4px; font-size: 12px; font-weight: 900; text-transform: uppercase; border-right: 3px solid var(--black); color: #aaa; }
+        .progress-step:last-child { border-right: none; }
+        .progress-step.done   { background: var(--green);  color: var(--white); }
+        .progress-step.active { background: var(--yellow); color: var(--black); }
+
+        /* RESULT */
+        .result-screen   { padding: 32px 24px; text-align: center; }
+        .result-title    { font-size: 32px; font-weight: 900; text-transform: uppercase; background: var(--yellow); border: 4px solid var(--black); box-shadow: var(--shadow-lg); display: inline-block; padding: 8px 28px; margin-bottom: 20px; }
+        .result-info     { display: inline-flex; flex-direction: column; gap: 6px; border: 3px solid var(--black); box-shadow: var(--shadow); padding: 14px 28px; margin-bottom: 20px; text-align: left; background: var(--white); font-size: 16px; font-weight: 700; }
+        .result-info b   { color: var(--pink); }
+        .score-circle    { width: 160px; height: 160px; border-radius: 50%; background: var(--pink); color: var(--white); border: 5px solid var(--black); box-shadow: 8px 8px 0 var(--black); display: flex; align-items: center; justify-content: center; font-size: 46px; font-weight: 900; margin: 0 auto 20px; }
+        .score-circle .denom { font-size: 22px; }
+        .result-sub      { font-size: 16px; font-weight: 800; margin-bottom: 8px; }
+        .result-feedback { font-size: 26px; font-weight: 900; text-transform: uppercase; border: 4px solid var(--black); box-shadow: var(--shadow-lg); display: inline-block; padding: 8px 24px; margin-top: 10px; }
+    </style>
+</head>
+<body>
+<div id="app">
+
+    <!-- PROGRESS -->
+    <div class="progress-strip" id="progress-strip" style="display:none">
+        <div class="progress-step" id="ps1">Câu 1</div>
+        <div class="progress-step" id="ps2">Câu 2</div>
+        <div class="progress-step" id="ps3">Câu 3</div>
+        <div class="progress-step" id="ps4">Câu 4</div>
+        <div class="progress-step" id="ps5">Câu 5</div>
+    </div>
+
+    <!-- TOP BAR -->
+    <div class="top-bar">
+        <h1>📚 Phiếu học tập<br><span>Ôn tập cuối học kì II – Đề 1</span></h1>
+        <div class="badges">
+            <span class="badge pink">Toán · Lớp 5</span>
+            <span class="badge blue">40 phút</span>
+            <span class="badge green">10 điểm</span>
+            <span class="badge orange">5 dạng bài</span>
+        </div>
+    </div>
+
+    <!-- BẮT ĐẦU -->
+    <div id="screen-start" class="screen active">
+        <div class="form-wrap">
+            <div class="form-group">
+                <label>👤 Họ và Tên</label>
+                <input type="text" id="studentName" placeholder="Nhập họ tên của con..." autocomplete="off">
+            </div>
+            <div class="form-group">
+                <label>🏫 Lớp</label>
+                <input type="text" id="studentClass" placeholder="VD: 5A, 5A1, 5A2..." autocomplete="off">
+            </div>
+            <div class="btn-center">
+                <button class="btn btn-primary btn-block" onclick="startQuiz()">🚀 Bắt đầu làm bài!</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- CÂU 1 -->
+    <div id="screen-q1" class="screen">
+        <span class="q-label">✏️ Câu 1 / 5</span>
+        <div class="question-box" id="box-q1">
+            <div class="q-title">ĐIỀN VÀO CHỖ TRỐNG — 2 điểm</div>
+            <p class="q-hint">👆 Chạm vào thẻ vàng → chạm vào ô trống để điền. Chạm lại ô đã điền để xoá.</p>
+            <div class="word-bank" id="q1-bank"></div>
+            <div class="drop-zone-container" id="q1-drops"></div>
+        </div>
+        <div class="feedback-msg" id="msg-q1"></div>
+        <div class="btn-center">
+            <button class="btn btn-primary" id="btn-q1" onclick="checkQ1()">Kiểm tra ➡️</button>
+        </div>
+    </div>
+
+    <!-- CÂU 2 -->
+    <div id="screen-q2" class="screen">
+        <span class="q-label">🔗 Câu 2 / 5</span>
+        <div class="question-box" id="box-q2">
+            <div class="q-title">NỐI KẾT QUẢ — 2 điểm</div>
+            <p class="q-hint">👆 Chạm ô trái → chạm ô phải để nối. Chạm lại ô đã nối để bỏ.</p>
+            <div class="match-container" id="match-area-1">
+                <svg id="svg-layer"></svg>
+                <div class="match-col" id="q2-left"></div>
+                <div class="match-col" id="q2-right"></div>
+            </div>
+        </div>
+        <div class="feedback-msg" id="msg-q2"></div>
+        <div class="btn-center">
+            <button class="btn btn-primary" id="btn-q2" onclick="checkQ2()">Kiểm tra ➡️</button>
+        </div>
+    </div>
+
+    <!-- CÂU 3 -->
+    <div id="screen-q3" class="screen">
+        <span class="q-label">🔘 Câu 3 / 5</span>
+        <div class="question-box" id="box-q3">
+            <div class="q-title">TRẮC NGHIỆM — 2 điểm</div>
+            <div id="q3-body"></div>
+        </div>
+        <div class="feedback-msg" id="msg-q3"></div>
+        <div class="btn-center">
+            <button class="btn btn-primary" id="btn-q3" onclick="checkQ3()">Kiểm tra ➡️</button>
+        </div>
+    </div>
+
+    <!-- CÂU 4 -->
+    <div id="screen-q4" class="screen">
+        <span class="q-label">🔗 Câu 4 / 5</span>
+        <div class="question-box" id="box-q4">
+            <div class="q-title">NỐI TÌM X — 2 điểm</div>
+            <p class="q-hint">⚠️ Có đáp án nhiễu — chú ý kỹ nhé!</p>
+            <div class="match-container" id="match-area-2">
+                <svg id="svg-layer-q4"></svg>
+                <div class="match-col" id="q4-left"></div>
+                <div class="match-col" id="q4-right"></div>
+            </div>
+        </div>
+        <div class="feedback-msg" id="msg-q4"></div>
+        <div class="btn-center">
+            <button class="btn btn-primary" id="btn-q4" onclick="checkQ4()">Kiểm tra ➡️</button>
+        </div>
+    </div>
+
+    <!-- CÂU 5 -->
+    <div id="screen-q5" class="screen">
+        <span class="q-label">📝 Câu 5 / 5</span>
+        <div class="question-box" id="box-q5">
+            <div class="q-title">TÌNH HUỐNG — 2 điểm</div>
+            <div class="story-box">
+                🚗 Một ô tô đi trong <b>0,75 giờ</b> với vận tốc <b>60 km/giờ</b>.<br>
+                Tính <b>quãng đường</b> ô tô đi được.
+            </div>
+            <div class="text-input-group">
+                <label>⚙️ Phép tính:</label>
+                <input type="text" id="q5_calc" placeholder="VD: 0,75 x 60">
+            </div>
+            <div class="text-input-group">
+                <label>🔢 Kết quả:</label>
+                <input type="text" id="q5_res" placeholder="VD: 45">
+            </div>
+            <div class="text-input-group">
+                <label>✅ Đáp số:</label>
+                <input type="text" id="q5_ans" placeholder="VD: 45 km">
+            </div>
+        </div>
+        <div class="feedback-msg" id="msg-q5"></div>
+        <div class="btn-center">
+            <button class="btn btn-primary" id="btn-q5" onclick="checkQ5()">🏆 Chấm điểm!</button>
+        </div>
+    </div>
+
+    <!-- KẾT QUẢ -->
+    <div id="screen-result" class="screen result-screen">
+        <div class="result-title">🎉 Hoàn thành! 🎉</div>
+        <div class="result-info">
+            <span>👤 Họ tên: <b id="resName"></b></span>
+            <span>🏫 Lớp: <b id="resClass"></b></span>
+        </div>
+        <div class="score-circle">
+            <span id="resTotal"></span><span class="denom">/10</span>
+        </div>
+        <p class="result-sub">Số câu đúng ngay lần đầu: <b id="resPerfect"></b> / 5 câu</p>
+        <div class="result-feedback" id="resFeedback"></div>
+    </div>
+
+</div><!-- /#app -->
+
+<script>
+// ═══════════════════════════════════════
+//  HELPER
+// ═══════════════════════════════════════
+function shuffle(arr) {
+    const a = [...arr];
+    for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+}
+// Gán nhãn A, B, C... theo chỉ số
+function toLabel(i) { return String.fromCharCode(65 + i); }
+
+// ═══════════════════════════════════════
+//  STATE
+// ═══════════════════════════════════════
+const state = {
+    scores:         { q1:0, q2:0, q3:0, q4:0, q5:0 },
+    isFirstAttempt: { q1:true, q2:true, q3:true, q4:true, q5:true },
+    perfectCount: 0
+};
+
+// ═══════════════════════════════════════
+//  DỮ LIỆU — không lưu nhãn A/B/C cố định
+// ═══════════════════════════════════════
+
+// Q1
+const Q1_ITEMS = [
+    { text: 'Phân số lớn hơn 1/2 là:',                                        ans: '6/11'     },
+    { text: 'Hai số tiếp theo của dãy 1, 146, 41, 147, 51, 148, 61, 149, …:', ans: '71, 150'  },
+    { text: 'Chiều rộng HHCN (V = 270 cm³; dài 6 cm; cao 9 cm):',             ans: '5 cm'     },
+    { text: '0,08 tấn =',                                                       ans: '80 kg'    },
+    { text: '7,268 m² =',                                                       ans: '7268 dm²' },
+];
+
+// Q2 — chỉ lưu nội dung, id cố định để chấm điểm
+const Q2_PAIRS = [
+    { q: '1. 889972 + 96308', a: '986280',  qId: 'q2_l1', aId: 'q2_r1' },
+    { q: '2. 7,284 – 5,596',  a: '1,688',   qId: 'q2_l2', aId: 'q2_r2' },
+    { q: '3. 4802 × 34',      a: '163268',  qId: 'q2_l3', aId: 'q2_r3' },
+    { q: '4. 75,95 ÷ 3,5',    a: '21,7',    qId: 'q2_l4', aId: 'q2_r4' },
+];
+
+// Q3 — correctText để chấm theo nội dung, không theo nhãn
+const Q3_ITEMS = [
+    { id:'q31', text:'3.1 · Phân số nào lớn hơn 1/2?',
+      options:['3/6','3/8','6/11','2/5'], correctText:'6/11' },
+    { id:'q32', text:'3.2 · Hai số tiếp theo của dãy (… 61, 149, …)?',
+      options:['71, 160','61, 160','51, 150','71, 150'], correctText:'71, 150' },
+    { id:'q33', text:'3.3 · Chiều rộng HHCN (V=270cm³; dài 6cm; cao 9cm)?',
+      options:['5 cm','9 cm','15 cm','30 cm'], correctText:'5 cm' },
+    { id:'q34', text:'3.4 · 0,08 tấn = … kg?',
+      options:['80','0,8','8','800'], correctText:'80' },
+];
+
+// Q4 — đáp án đúng + nhiễu, chỉ lưu nội dung
+const Q4_PAIRS = [
+    { q:'1. x + 5,84 = 9,16',              a:'x = 3,32', qId:'q4_l1', aId:'q4_r1', small:false },
+    { q:'2. x – 0,35 = 2,55',              a:'x = 2,9',  qId:'q4_l2', aId:'q4_r2', small:false },
+    { q:'3. 7,9×8,3 + 7,9×1,7',            a:'79',       qId:'q4_l3', aId:'q4_r3', small:true  },
+    { q:'4. 1000×0,04 – 100÷2,5 + 10×0,4', a:'4',        qId:'q4_l4', aId:'q4_r4', small:true  },
+];
+const Q4_DECOYS = [
+    { a:'7,9 × 10', aId:'q4_rd1' },
+    { a:'x = 4,32', aId:'q4_rd2' },
+];
+
+// ═══════════════════════════════════════
+//  BUILD — xáo trộn rồi gán nhãn mới
+// ═══════════════════════════════════════
+function buildQ1() {
+    // Xáo thẻ từ trong ngân hàng
+    const shuffledWords = shuffle(Q1_ITEMS.map(i => i.ans));
+    const bank = document.getElementById('q1-bank');
+    bank.innerHTML = '';
+    shuffledWords.forEach(w => {
+        const d = document.createElement('div');
+        d.className = 'word';
+        d.textContent = w;
+        d.onclick = () => selectWord(d);
+        bank.appendChild(d);
+    });
+    // Render câu hỏi (thứ tự câu hỏi giữ nguyên 1→5)
+    const drops = document.getElementById('q1-drops');
+    drops.innerHTML = '';
+    Q1_ITEMS.forEach((item, i) => {
+        const line = document.createElement('div');
+        line.style.marginBottom = '4px';
+        line.innerHTML = `<b>${i + 1}.</b> ${item.text}&nbsp;`;
+        const slot = document.createElement('span');
+        slot.className = 'drop-slot';
+        slot.dataset.ans = item.ans;
+        slot.onclick = () => placeWord(slot);
+        line.appendChild(slot);
+        drops.appendChild(line);
+    });
+}
+
+function buildQ2() {
+    const leftCol  = document.getElementById('q2-left');
+    const rightCol = document.getElementById('q2-right');
+    leftCol.innerHTML = rightCol.innerHTML = '';
+
+    // Xáo trộn cột phải rồi gán nhãn A,B,C,D mới
+    const shuffledRight = shuffle(Q2_PAIRS.map(p => ({ text: p.a, aId: p.aId })));
+
+    // Cột trái — thứ tự cố định
+    Q2_PAIRS.forEach(p => {
+        const el = document.createElement('div');
+        el.className = 'match-item'; el.id = p.qId;
+        el.textContent = p.q;
+        el.onclick = () => handleMatch('q2', el, 'left');
+        leftCol.appendChild(el);
+    });
+    // Cột phải — nhãn A,B,C,D theo vị trí sau xáo
+    shuffledRight.forEach((item, i) => {
+        const el = document.createElement('div');
+        el.className = 'match-item'; el.id = item.aId;
+        el.textContent = `${toLabel(i)}. ${item.text}`;
+        el.onclick = () => handleMatch('q2', el, 'right');
+        rightCol.appendChild(el);
+    });
+}
+
+function buildQ3() {
+    const body = document.getElementById('q3-body');
+    body.innerHTML = '';
+    Q3_ITEMS.forEach(item => {
+        // Xáo trộn options rồi gán nhãn A,B,C,D mới
+        const shuffled = shuffle([...item.options]);
+        const div = document.createElement('div');
+        div.className = 'mcq-item';
+        let html = `<p>${item.text}</p><div class="mcq-options">`;
+        shuffled.forEach((optText, i) => {
+            // value = nội dung text (để chấm theo nội dung, không theo nhãn)
+            html += `<label>
+                <input type="radio" name="${item.id}" value="${optText}">
+                ${toLabel(i)}. ${optText}
+            </label>`;
+        });
+        html += '</div>';
+        div.innerHTML = html;
+        body.appendChild(div);
+    });
+}
+
+function buildQ4() {
+    const leftCol  = document.getElementById('q4-left');
+    const rightCol = document.getElementById('q4-right');
+    leftCol.innerHTML = rightCol.innerHTML = '';
+
+    // Gộp đáp án đúng + nhiễu → xáo trộn → gán nhãn A→F mới
+    const allRight = shuffle([
+        ...Q4_PAIRS.map(p => ({ text: p.a, aId: p.aId })),
+        ...Q4_DECOYS.map(p => ({ text: p.a, aId: p.aId })),
+    ]);
+
+    // Cột trái — thứ tự cố định
+    Q4_PAIRS.forEach(p => {
+        const el = document.createElement('div');
+        el.className = 'match-item'; el.id = p.qId;
+        el.textContent = p.q;
+        if (p.small) el.style.fontSize = '12px';
+        el.onclick = () => handleMatch('q4', el, 'left');
+        leftCol.appendChild(el);
+    });
+    // Cột phải — nhãn A,B,C,D,E,F theo vị trí sau xáo
+    allRight.forEach((item, i) => {
+        const el = document.createElement('div');
+        el.className = 'match-item'; el.id = item.aId;
+        el.textContent = `${toLabel(i)}. ${item.text}`;
+        el.onclick = () => handleMatch('q4', el, 'right');
+        rightCol.appendChild(el);
+    });
+}
+
+// ═══════════════════════════════════════
+//  PROGRESS
+// ═══════════════════════════════════════
+const STEPS = ['q1','q2','q3','q4','q5'];
+function updateProgress(activeQ) {
+    document.getElementById('progress-strip').style.display = 'flex';
+    const idx = STEPS.indexOf(activeQ);
+    STEPS.forEach((q, i) => {
+        const el = document.getElementById('ps' + (i + 1));
+        el.classList.remove('done', 'active');
+        if (i < idx)   el.classList.add('done');
+        if (i === idx) el.classList.add('active');
+    });
+}
+
+// ═══════════════════════════════════════
+//  SCREEN
+// ═══════════════════════════════════════
+function showScreen(id) {
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    document.getElementById('app').scrollTop = 0;
+    if (id === 'screen-q2') setTimeout(() => drawAllLines('q2'), 120);
+    if (id === 'screen-q4') setTimeout(() => drawAllLines('q4'), 120);
+    const qMap = { 'screen-q1':'q1','screen-q2':'q2','screen-q3':'q3','screen-q4':'q4','screen-q5':'q5' };
+    if (qMap[id]) updateProgress(qMap[id]);
+    if (id === 'screen-result') document.getElementById('progress-strip').style.display = 'none';
+}
+
+// ═══════════════════════════════════════
+//  START
+// ═══════════════════════════════════════
+function startQuiz() {
+    const name = document.getElementById('studentName').value.trim();
+    const cls  = document.getElementById('studentClass').value.trim();
+    if (!name) { alert('Con hãy nhập Họ Tên nhé! 😊'); return; }
+    if (!cls)  { alert('Con hãy nhập Lớp nhé! 😊'); return; }
+    document.getElementById('resName').innerText  = name;
+    document.getElementById('resClass').innerText = cls.toUpperCase();
+    // Build + xáo trộn tất cả câu hỏi
+    buildQ1(); buildQ2(); buildQ3(); buildQ4();
+    showScreen('screen-q1');
+}
+
+// ═══════════════════════════════════════
+//  FEEDBACK
+// ═══════════════════════════════════════
+function showFeedback(q, ok, msg) {
+    const box = document.getElementById('box-' + q);
+    box.classList.remove('correct', 'wrong');
+    box.classList.add(ok ? 'correct' : 'wrong');
+    const el = document.getElementById('msg-' + q);
+    el.className = 'feedback-msg ' + (ok ? 'text-success' : 'text-danger');
+    el.innerText = msg;
+}
+
+// ═══════════════════════════════════════
+//  Q1 — ĐIỀN CHỖ TRỐNG
+// ═══════════════════════════════════════
+let selectedWord = null;
+function selectWord(el) {
+    if (el.classList.contains('used')) return;
+    document.querySelectorAll('.word').forEach(w => w.classList.remove('selected'));
+    el.classList.add('selected');
+    selectedWord = el;
+}
+function placeWord(slot) {
+    if (selectedWord) {
+        if (slot.innerText) {
+            document.querySelectorAll('.word').forEach(w => {
+                if (w.innerText === slot.innerText) w.classList.remove('used');
+            });
+        }
+        slot.innerText = selectedWord.innerText;
+        slot.classList.add('filled');
+        selectedWord.classList.remove('selected');
+        selectedWord.classList.add('used');
+        selectedWord = null;
+    } else if (slot.innerText) {
+        document.querySelectorAll('.word').forEach(w => {
+            if (w.innerText === slot.innerText) w.classList.remove('used');
+        });
+        slot.innerText = '';
+        slot.classList.remove('filled');
+    }
+}
+function checkQ1() {
+    const slots = document.querySelectorAll('#q1-drops .drop-slot');
+    let correct = 0, complete = true;
+    slots.forEach(s => {
+        if (!s.innerText) complete = false;
+        if (s.innerText === s.dataset.ans) correct++;
+    });
+    if (!complete) { showFeedback('q1', false, 'Con chưa điền hết các ô trống! 📝'); return; }
+    if (state.isFirstAttempt.q1) {
+        state.scores.q1 = correct * 0.4;
+        if (correct === 5) state.perfectCount++;
+        state.isFirstAttempt.q1 = false;
+    }
+    if (correct === 5) {
+        showFeedback('q1', true, '🎉 Tuyệt vời! Đúng hết rồi!');
+        const btn = document.getElementById('btn-q1');
+        btn.innerText = 'Sang Câu 2 ➡️'; btn.classList.add('btn-success');
+        btn.onclick = () => showScreen('screen-q2');
+    } else {
+        showFeedback('q1', false, `Đúng ${correct}/5 ô — sửa lại nhé! 💪`);
+    }
+}
+
+// ═══════════════════════════════════════
+//  Q2 & Q4 — NỐI
+// ═══════════════════════════════════════
+let matchState = {
+    q2: { selectedLeft: null, selectedRight: null, pairs: [] },
+    q4: { selectedLeft: null, selectedRight: null, pairs: [] }
+};
+function handleMatch(q, el, side) {
+    const ms = matchState[q];
+    if (el.classList.contains('selected')) {
+        el.classList.remove('selected');
+        ms[side === 'left' ? 'selectedLeft' : 'selectedRight'] = null;
+        return;
+    }
+    ms.pairs = ms.pairs.filter(p => {
+        if (p.l === el.id || p.r === el.id) {
+            document.getElementById(p.l).classList.remove('paired');
+            document.getElementById(p.r).classList.remove('paired');
+            return false;
+        }
+        return true;
+    });
+    document.querySelectorAll(`#${q}-${side} .match-item`).forEach(i => i.classList.remove('selected'));
+    el.classList.add('selected');
+    if (side === 'left') ms.selectedLeft = el.id; else ms.selectedRight = el.id;
+    if (ms.selectedLeft && ms.selectedRight) {
+        ms.pairs.push({ l: ms.selectedLeft, r: ms.selectedRight });
+        document.getElementById(ms.selectedLeft).classList.remove('selected');
+        document.getElementById(ms.selectedRight).classList.remove('selected');
+        document.getElementById(ms.selectedLeft).classList.add('paired');
+        document.getElementById(ms.selectedRight).classList.add('paired');
+        ms.selectedLeft = null; ms.selectedRight = null;
+    }
+    drawAllLines(q);
+}
+function drawAllLines(q) {
+    const svg = document.getElementById(q === 'q2' ? 'svg-layer' : 'svg-layer-q4');
+    const box = svg.parentElement.getBoundingClientRect();
+    svg.innerHTML = '';
+    matchState[q].pairs.forEach(p => {
+        const a = document.getElementById(p.l).getBoundingClientRect();
+        const b = document.getElementById(p.r).getBoundingClientRect();
+        const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+        line.setAttribute('x1', a.right  - box.left);
+        line.setAttribute('y1', a.top + a.height / 2 - box.top);
+        line.setAttribute('x2', b.left   - box.left);
+        line.setAttribute('y2', b.top + b.height / 2 - box.top);
+        line.setAttribute('stroke', '#FF3CAC');
+        line.setAttribute('stroke-width', '4');
+        svg.appendChild(line);
+    });
+}
+window.addEventListener('resize', () => { drawAllLines('q2'); drawAllLines('q4'); });
+
+function checkQ2() {
+    const pairs = matchState.q2.pairs;
+    if (pairs.length < 4) { showFeedback('q2', false, 'Nối hết 4 phép tính nhé! 🔗'); return; }
+    // Chấm theo id (id cố định, không đổi dù nhãn chữ thay đổi)
+    const ans = {};
+    Q2_PAIRS.forEach(p => { ans[p.qId] = p.aId; });
+    let correct = 0;
+    pairs.forEach(p => { if (ans[p.l] === p.r) correct++; });
+    if (state.isFirstAttempt.q2) {
+        state.scores.q2 = correct * 0.5;
+        if (correct === 4) state.perfectCount++;
+        state.isFirstAttempt.q2 = false;
+    }
+    if (correct === 4) {
+        showFeedback('q2', true, '🎉 Nối đúng hết rồi!');
+        const btn = document.getElementById('btn-q2');
+        btn.innerText = 'Sang Câu 3 ➡️'; btn.classList.add('btn-success');
+        btn.onclick = () => showScreen('screen-q3');
+    } else {
+        showFeedback('q2', false, `Đúng ${correct}/4 — chạm vào ô đã nối để bỏ và nối lại! 💪`);
+    }
+}
+
+// ═══════════════════════════════════════
+//  Q3 — TRẮC NGHIỆM
+//  Chấm theo nội dung text (value = text), không theo nhãn A/B/C/D
+// ═══════════════════════════════════════
+function checkQ3() {
+    let correct = 0, answered = 0;
+    Q3_ITEMS.forEach(item => {
+        const s = document.querySelector(`input[name="${item.id}"]:checked`);
+        if (s) {
+            answered++;
+            if (s.value === item.correctText) correct++;
+        }
+    });
+    if (answered < Q3_ITEMS.length) { showFeedback('q3', false, 'Chọn hết 4 câu nhé! 📝'); return; }
+    if (state.isFirstAttempt.q3) {
+        state.scores.q3 = correct * 0.5;
+        if (correct === 4) state.perfectCount++;
+        state.isFirstAttempt.q3 = false;
+    }
+    if (correct === 4) {
+        showFeedback('q3', true, '🎉 Xuất sắc! 4/4 câu đúng!');
+        const btn = document.getElementById('btn-q3');
+        btn.innerText = 'Sang Câu 4 ➡���'; btn.classList.add('btn-success');
+        btn.onclick = () => showScreen('screen-q4');
+    } else {
+        showFeedback('q3', false, `Đúng ${correct}/4 — kiểm tra lại nhé! 💪`);
+    }
+}
+
+// ═══════════════════════════════════════
+//  Q4 — NỐI TÌM X
+//  Chấm theo id cố định
+// ═══════════════════════════════════════
+function checkQ4() {
+    const pairs = matchState.q4.pairs;
+    if (pairs.length < 4) { showFeedback('q4', false, 'Nối hết 4 phép tính nhé! 🔗'); return; }
+    const ans = {};
+    Q4_PAIRS.forEach(p => { ans[p.qId] = p.aId; });
+    let correct = 0;
+    pairs.forEach(p => {
+        if (ans[p.l] && ans[p.l] === p.r) correct++;
+    });
+    if (state.isFirstAttempt.q4) {
+        state.scores.q4 = correct * 0.5;
+        if (correct === 4) state.perfectCount++;
+        state.isFirstAttempt.q4 = false;
+    }
+    if (correct === 4) {
+        showFeedback('q4', true, '🎉 Chính xác 100%!');
+        const btn = document.getElementById('btn-q4');
+        btn.innerText = 'Sang Câu 5 ➡️'; btn.classList.add('btn-success');
+        btn.onclick = () => showScreen('screen-q5');
+    } else {
+        showFeedback('q4', false, `Đúng ${correct}/4 — coi chừng đáp án nhiễu nhé! 💪`);
+    }
+}
+
+// ═══════════════════════════════════════
+//  Q5 — TÌNH HUỐNG
+// ═══════════════════════════════════════
+function checkQ5() {
+    const v1 = document.getElementById('q5_calc').value.trim();
+    const v2 = document.getElementById('q5_res').value.trim();
+    const v3 = document.getElementById('q5_ans').value.trim();
+    if (!v1 || !v2 || !v3) { showFeedback('q5', false, 'Điền đầy đủ cả 3 ô nhé! 📝'); return; }
+    const s_calc = /(0[,.]75\s*[*xX×]\s*60)|(60\s*[*xX×]\s*0[,.]75)/.test(v1) ? 1   : 0;
+    const s_res  = /45/.test(v2)                                                 ? 0.5 : 0;
+    const s_ans  = /^45\s*(km)?$/i.test(v3)                                      ? 0.5 : 0;
+    const total  = s_calc + s_res + s_ans;
+    if (state.isFirstAttempt.q5) {
+        state.scores.q5 = total;
+        if (total === 2) state.perfectCount++;
+        state.isFirstAttempt.q5 = false;
+    }
+    if (total === 2) {
+        showFeedback('q5', true, '🎉 Chính xác!');
+        setTimeout(finishQuiz, 900);
+    } else {
+        showFeedback('q5', false, 'Sai hoặc thiếu ý — Gợi ý: 0,75 × 60 = 45 km 💡');
+    }
+}
+
+// ═══════════════════════════════════════
+//  FINISH
+// ═══════════════════════════════════════
+function finishQuiz() {
+    let total = Object.values(state.scores).reduce((a, b) => a + b, 0);
+    total = Math.round(total * 10) / 10;
+    const pct = (total / 10) * 100;
+    document.getElementById('resTotal').innerText   = total;
+    document.getElementById('resPerfect').innerText = state.perfectCount;
+    const fb = document.getElementById('resFeedback');
+    if      (pct >= 90) { fb.innerText = '⭐ Xuất sắc!';        fb.style.background = '#FFE500'; fb.style.color = '#000'; }
+    else if (pct >= 70) { fb.innerText = '👍 Tốt lắm!';         fb.style.background = '#00C853'; fb.style.color = '#fff'; }
+    else if (pct >= 50) { fb.innerText = '💪 Cần luyện thêm!';  fb.style.background = '#FF6D00'; fb.style.color = '#fff'; }
+    else                { fb.innerText = '📖 Xem lại bài nhé!'; fb.style.background = '#FF1744'; fb.style.color = '#fff'; }
+    showScreen('screen-result');
+}
+</script>
+</body>
+</html>
