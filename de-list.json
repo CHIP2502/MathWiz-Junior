@@ -52,5 +52,23 @@
     "chips": ["Hình tròn", "Xe đạp đường vòng", "Trường tiểu học"],
     "phan": 5,
     "trang_thai": "san_sang"
+  },
+  {
+    "so": 7,
+    "file": "de7.html",
+    "mau": "#FFF3E0",
+    "nhan_mau": "#FF6D00",
+    "chips": ["Số thập phân", "Hình tròn", "Lập phương", "Ô tô A→B"],
+    "phan": 7,
+    "trang_thai": "san_sang"
+  },
+    {
+    "so": 8,
+    "file": "de8.html",
+    "mau": "#FFF3E0",
+    "nhan_mau": "#FF6D00",
+    "chips": [""],
+    "phan": 0,
+    "trang_thai": "sap_ra"
   }
 ]
