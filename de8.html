@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phiếu học tập ôn tập cuối học kì II - Đề 8</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --black:#000; --white:#fff; --yellow:#FFE500; --pink:#FF3CAC;
+            --green:#00C853; --blue:#2979FF; --orange:#FF6D00; --red:#FF1744;
+            --bg:#E3F2FD; --shadow:4px 4px 0px #000; --shadow-lg:6px 6px 0px #000;
+        }
+        *{box-sizing:border-box;margin:0;padding:0;font-family:'Nunito',sans-serif;}
+        body{background-color:var(--bg);background-image:radial-gradient(circle,#000 1.5px,transparent 1.5px);background-size:28px 28px;min-height:100vh;display:flex;justify-content:center;align-items:flex-start;padding:24px 12px;}
+        #app{background:var(--white);width:100%;max-width:860px;border:4px solid var(--black);box-shadow:10px 10px 0 var(--black);display:flex;flex-direction:column;}
+        .top-bar{background:var(--blue);border-bottom:4px solid var(--black);padding:18px 24px 14px;text-align:center;}
+        .top-bar h1{font-size:26px;font-weight:900;color:var(--white);text-transform:uppercase;letter-spacing:1px;line-height:1.3;}
+        .top-bar h1 span{color:var(--yellow);}
+        .badges{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:12px;}
+        .badge{border:3px solid var(--black);box-shadow:var(--shadow);padding:4px 12px;font-size:13px;font-weight:800;text-transform:uppercase;}
+        .badge.pink{background:var(--pink);color:var(--white);}
+        .badge.yellow{background:var(--yellow);color:var(--black);}
+        .badge.white{background:var(--white);color:var(--black);}
+        .badge.orange{background:var(--orange);color:var(--white);}
+        .screen{display:none;padding:28px 24px;animation:popIn .35s cubic-bezier(.34,1.56,.64,1);}
+        .screen.active{display:block;}
+        @keyframes popIn{from{opacity:0;transform:scale(.94) translateY(12px)}to{opacity:1;transform:scale(1) translateY(0)}}
+        .q-label{display:inline-block;background:var(--blue);color:var(--white);border:3px solid var(--black);box-shadow:var(--shadow);font-size:14px;font-weight:900;text-transform:uppercase;padding:4px 14px;margin-bottom:10px;}
+        .q-title{font-size:20px;font-weight:900;color:var(--black);border-bottom:3px solid var(--black);padding-bottom:10px;margin-bottom:16px;}
+        .q-hint{font-size:13px;font-style:italic;color:#555;margin-bottom:14px;}
+        .form-wrap{max-width:420px;margin:0 auto;}
+        .form-group{margin-bottom:18px;}
+        .form-group label{display:block;font-weight:900;font-size:13px;text-transform:uppercase;letter-spacing:.5px;color:var(--black);margin-bottom:6px;}
+        .form-group input{width:100%;padding:12px 14px;border:3px solid var(--black);font-size:16px;font-weight:700;outline:none;box-shadow:var(--shadow);background:var(--white);}
+        .form-group input:focus{box-shadow:6px 6px 0 var(--blue);}
+        .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 28px;font-size:16px;font-weight:900;text-transform:uppercase;border:3px solid var(--black);cursor:pointer;transition:all .12s;box-shadow:var(--shadow-lg);margin-top:20px;}
+        .btn:hover{transform:translate(-2px,-2px);box-shadow:8px 8px 0 var(--black);}
+        .btn:active{transform:translate(4px,4px);box-shadow:0 0 0 var(--black);}
+        .btn-primary{background:var(--yellow);color:var(--black);}
+        .btn-success{background:var(--blue);color:var(--white);}
+        .btn-block{width:100%;}
+        .btn-center{display:flex;justify-content:center;}
+        .question-box{border:4px solid var(--black);box-shadow:var(--shadow-lg);padding:20px;margin-bottom:16px;background:var(--white);transition:background .3s;}
+        .question-box.correct{background:#CCFF90;}
+        .question-box.wrong{background:#FFCDD2;}
+        .mcq-item{margin-bottom:22px;}
+        .mcq-item>p{font-size:15px;font-weight:800;margin-bottom:10px;line-height:1.6;}
+        .mcq-options{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+        .mcq-options label{display:flex;align-items:center;gap:10px;background:var(--white);border:3px solid var(--black);box-shadow:var(--shadow);padding:10px 12px;cursor:pointer;font-weight:800;font-size:14px;transition:all .12s;}
+        .mcq-options label:hover{background:var(--yellow);transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--black);}
+        .mcq-options input[type="radio"]{transform:scale(1.4);accent-color:var(--blue);flex-shrink:0;}
+        .calc-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:8px;align-items:stretch;}
+        .calc-item{background:#f9f9f9;border:3px solid var(--black);box-shadow:var(--shadow);padding:14px;display:flex;flex-direction:column;justify-content:space-between;}
+        .calc-item p{font-size:15px;font-weight:800;margin-bottom:8px;line-height:1.5;flex:1;}
+        .calc-item input{width:100%;padding:8px 10px;border:3px solid var(--black);font-size:14px;font-weight:700;outline:none;background:var(--white);box-shadow:2px 2px 0 #000;margin-top:auto;}
+        .calc-item input:focus{box-shadow:4px 4px 0 var(--blue);}
+        .story-box{background:#E3F2FD;border:3px solid var(--black);box-shadow:var(--shadow);padding:14px 16px;font-size:15px;font-weight:700;margin-bottom:16px;line-height:1.8;}
+        .story-box b{color:var(--pink);}
+        .solve-label{font-size:13px;font-weight:900;text-transform:uppercase;color:var(--black);margin-bottom:6px;display:block;margin-top:12px;}
+        .solve-input{width:100%;padding:10px 12px;border:3px solid var(--black);font-size:15px;font-weight:700;outline:none;box-shadow:var(--shadow);background:var(--white);}
+        .solve-input:focus{box-shadow:5px 5px 0 var(--blue);}
+        .feedback-msg{text-align:center;font-weight:900;font-size:16px;min-height:28px;margin-top:6px;padding:6px 0;}
+        .text-success{color:var(--green);}
+        .text-danger{color:var(--red);}
+        .progress-strip{display:flex;border-bottom:4px solid var(--black);background:var(--white);flex-wrap:wrap;}
+        .progress-step{flex:1;min-width:48px;text-align:center;padding:8px 2px;font-size:9px;font-weight:900;text-transform:uppercase;border-right:3px solid var(--black);color:#aaa;}
+        .progress-step:last-child{border-right:none;}
+        .progress-step.done{background:var(--blue);color:var(--white);}
+        .progress-step.active{background:var(--yellow);color:var(--black);}
+        .result-screen{padding:32px 24px;text-align:center;}
+        .result-title{font-size:32px;font-weight:900;text-transform:uppercase;background:var(--yellow);border:4px solid var(--black);box-shadow:var(--shadow-lg);display:inline-block;padding:8px 28px;margin-bottom:20px;}
+        .result-info{display:inline-flex;flex-direction:column;gap:6px;border:3px solid var(--black);box-shadow:var(--shadow);padding:14px 28px;margin-bottom:20px;text-align:left;background:var(--white);font-size:16px;font-weight:700;}
+        .result-info b{color:var(--blue);}
+        .score-circle{width:160px;height:160px;border-radius:50%;background:var(--blue);color:var(--white);border:5px solid var(--black);box-shadow:8px 8px 0 var(--black);display:flex;align-items:center;justify-content:center;font-size:46px;font-weight:900;margin:0 auto 20px;}
+        .score-circle .denom{font-size:22px;}
+        .result-sub{font-size:16px;font-weight:800;margin-bottom:8px;}
+        .result-feedback{font-size:26px;font-weight:900;text-transform:uppercase;border:4px solid var(--black);box-shadow:var(--shadow-lg);display:inline-block;padding:8px 24px;margin-top:10px;}
+        .result-nav{display:flex;gap:16px;justify-content:center;margin-top:24px;flex-wrap:wrap;}
+        .nav-btn{display:inline-flex;align-items:center;justify-content:center;padding:12px 28px;font-size:16px;font-weight:900;text-transform:uppercase;border:3px solid var(--black);cursor:pointer;box-shadow:var(--shadow-lg);text-decoration:none;transition:all .12s;}
+        .nav-btn:hover{transform:translate(-2px,-2px);box-shadow:8px 8px 0 var(--black);}
+        .nav-btn:active{transform:translate(4px,4px);box-shadow:0 0 0 var(--black);}
+    </style>
+</head>
+<body>
+<div id="app">
+
+    <div class="progress-strip" id="progress-strip" style="display:none">
+        <div class="progress-step" id="ps1">C1–C4</div>
+        <div class="progress-step" id="ps2">C5: Đổi số</div>
+        <div class="progress-step" id="ps3">C6: Tính</div>
+        <div class="progress-step" id="ps4">C7: Hồ bơi</div>
+        <div class="progress-step" id="ps5">C8: Tỉ số %</div>
+        <div class="progress-step" id="ps6">C9: Hai tàu</div>
+        <div class="progress-step" id="ps7">C10: Nhanh</div>
+    </div>
+
+    <div class="top-bar">
+        <h1>📚 Phiếu học tập<br><span>Ôn tập cuối học kì II – Đề 8</span></h1>
+        <div class="badges">
+            <span class="badge pink">Toán · Lớp 5</span>
+            <span class="badge yellow">40 phút</span>
+            <span class="badge white">10 điểm</span>
+            <span class="badge orange">7 phần</span>
+        </div>
+    </div>
+
+    <!-- BẮT ĐẦU -->
+    <div id="screen-start" class="screen active">
+        <div class="form-wrap">
+            <div class="form-group">
+                <label>👤 Họ và Tên</label>
+                <input type="text" id="studentName" placeholder="Nhập họ tên của con..." autocomplete="off">
+            </div>
+            <div class="form-group">
+                <label>🏫 Lớp</label>
+                <input type="text" id="studentClass" placeholder="VD: 5A, 5A1..." autocomplete="off">
+            </div>
+            <div class="btn-center">
+                <button class="btn btn-primary btn-block" onclick="startQuiz()">🚀 Bắt đầu làm bài!</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- CÂU 1–4: TRẮC NGHIỆM -->
+    <div id="screen-p1" class="screen">
+        <span class="q-label">🔘 Trắc nghiệm – Câu 1 đến 4</span>
+        <div class="question-box" id="box-p1">
+            <div class="q-title">PHẦN I — TRẮC NGHIỆM (4 điểm)</div>
+            <p class="q-hint">Mỗi câu đúng số điểm ghi trong ngoặc.</p>
+            <div id="p1-body"></div>
+        </div>
+        <div class="feedback-msg" id="msg-p1"></div>
+        <div class="btn-center">
+            <button class="btn btn-primary" id="btn-p1" onclick="checkP1()">Kiểm tra ➡️</button>
+        </div>
+    </div>
+
+    <!-- CÂU 5: ĐỔI SỐ -->
+    <div id="screen-c5" class="screen">
+        <span class="q-label">✏️ Câu 5</span>
+        <div class="question-box" id="box-c5">
+            <div class="q-title">CÂU 5 — ĐIỀN SỐ THÍCH HỢP (1 điểm)</div>
+            <p class="q-hint">Mỗi ô đúng 0,5 điểm.</p>
+            <div class="calc-grid">
+                <div class="calc-item">
+                    <p>a) 3,5 km² = ……m²</p>
+                    <input type="text" id="c5_a" placeholder="Nhập kết quả...">
+                </div>
+                <div class="calc-item">
+                    <p>b) 720 giây = ……phút</p>
+                    <input type="text" id="c5_b" placeholder="Nhập kết quả...">
+                </div>
+            </div>
+        </div>
+        <div class="feedback-msg" id="msg-c5"></div>
+        <div class="btn-center">
+            <button class="btn btn-primary" id="btn-c5" onclick="checkC5()">Kiểm tra ➡️</button>
+        </div>
+    </div>
+
+    <!-- CÂU 6: TÍNH -->
+    <div id="screen-c6" class="screen">
+        <span class="q-label">🔢 Câu 6</span>
+        <div class="question-box" id="box-c6">
+            <div class="q-title">CÂU 6 — TÍNH (1 điểm)</div>
+            <p class="q-hint">Mỗi câu đúng 0,5 điểm.</p>
+            <div class="calc-grid">
+                <div class="calc-item">
+                    <p>a) 4 giờ 25 phút × 3 – 5 giờ 15 phút</p>
+                    <input type="text" id="c6_a" placeholder="Nhập kết quả...">
+                </div>
+                <div class="calc-item">
+                    <p>b) (2 giờ 30 phút + 1 giờ 30 phút) : 4</p>
+                    <input type="text" id="c6_b" placeholder="Nhập kết quả...">
+                </div>
+            </div>
+        </div>
+        <div class="feedback-msg" id="msg-c6"></div>
+        <div class="btn-center">
+            <button class="btn btn-primary" id="btn-c6" onclick="checkC6()">Kiểm tra ➡️</button>
+        </div>
+    </div>
+
+    <!-- CÂU 7: HỒ BƠI -->
+    <div id="screen-c7" class="screen">
+        <span class="q-label">🏊 Câu 7</span>
+        <div class="question-box" id="box-c7">
+            <div class="q-title">CÂU 7 — HỒ BƠI HÌNH HỘP (1 điểm)</div>
+            <div class="story-box">
+                🏊 Hồ bơi hình hộp chữ nhật dài <b>25m</b>, rộng <b>10m</b>, sâu <b>1,5m</b>.<br><br>
+                a) ❓ Hồ chứa được bao nhiêu <b>lít nước</b> khi đầy?<br>
+                b) ❓ Diện tích cần lát gạch (đáy + 4 thành) là bao nhiêu <b>m²</b>?
+            </div>
+            <span class="solve-label">💧 a) Số lít nước:</span>
+            <input type="text" id="c7_a" class="solve-input" placeholder="Nhập kết quả... lít">
+            <span class="solve-label">🧱 b) Diện tích lát gạch:</span>
+            <input type="text" id="c7_b" class="solve-input" placeholder="Nhập kết quả... m²">
+        </div>
+        <div class="feedback-msg" id="msg-c7"></div>
+        <div class="btn-center">
+            <button class="btn btn-primary" id="btn-c7" onclick="checkC7()">Kiểm tra ➡️</button>
+        </div>
+    </div>
+
+    <!-- CÂU 8: TỈ SỐ % -->
+    <div id="screen-c8" class="screen">
+        <span class="q-label">📊 Câu 8</span>
+        <div class="question-box" id="box-c8">
+            <div class="q-title">CÂU 8 — BÀI TOÁN TỈ SỐ % (1 điểm)</div>
+            <div class="story-box">
+                🏫 Trường có <b>800 học sinh</b>, trong đó số học sinh giỏi chiếm <b>15%</b>.<br><br>
+                a) ❓ Có bao nhiêu học sinh giỏi?<br>
+                b) ❓ S��� học sinh chưa giỏi chiếm bao nhiêu <b>%</b>?
+            </div>
+            <span class="solve-label">⭐ a) Số học sinh giỏi:</span>
+            <input type="text" id="c8_a" class="solve-input" placeholder="Nhập kết quả... học sinh">
+            <span class="solve-label">📉 b) Tỉ lệ % chưa giỏi:</span>
+            <input type="text" id="c8_b" class="solve-input" placeholder="Nhập kết quả... %">
+        </div>
+        <div class="feedback-msg" id="msg-c8"></div>
+        <div class="btn-center">
+            <button class="btn btn-primary" id="btn-c8" onclick="checkC8()">Kiểm tra ➡️</button>
+        </div>
+    </div>
+
+    <!-- CÂU 9: HAI TÀU -->
+    <div id="screen-c9" class="screen">
+        <span class="q-label">🚢 Câu 9</span>
+        <div class="question-box" id="box-c9">
+            <div class="q-title">CÂU 9 — HAI TÀU THỦY (1 điểm)</div>
+            <div class="story-box">
+                🚢 Hai tàu thủy khởi hành cùng lúc từ hai bến A và B cách nhau <b>180 km</b>.<br>
+                Tàu từ A: vận tốc <b>32 km/giờ</b> · Tàu từ B: vận tốc <b>28 km/giờ</b>.<br><br>
+                a) 🔄 Đi <b>ngược chiều</b> — gặp nhau sau bao lâu?<br>
+                b) ➡️ Đi <b>cùng chiều</b> (tàu A đuổi tàu B) — gặp nhau sau bao lâu?
+            </div>
+            <span class="solve-label">🔄 a) Ngược chiều — thời gian gặp nhau:</span>
+            <input type="text" id="c9_a" class="solve-input" placeholder="Nhập kết quả... giờ">
+            <span class="solve-label">➡️ b) Cùng chiều — thời gian gặp nhau:</span>
+            <input type="text" id="c9_b" class="solve-input" placeholder="Nhập kết quả... giờ">
+        </div>
+        <div class="feedback-msg" id="msg-c9"></div>
+        <div class="btn-center">
+            <button class="btn btn-primary" id="btn-c9" onclick="checkC9()">Kiểm tra ➡️</button>
+        </div>
+    </div>
+
+    <!-- CÂU 10: TÍNH NHANH -->
+    <div id="screen-c10" class="screen">
+        <span class="q-label">⚡ Câu 10</span>
+        <div class="question-box" id="box-c10">
+            <div class="q-title">CÂU 10 — TÍNH NHANH (1 điểm)</div>
+            <div class="story-box">
+                ⚡ Tính nhanh: <b>48 : 36 + 24 : 36</b>
+            </div>
+            <span class="solve-label">💡 Kết quả:</span>
+            <input type="text" id="c10_kq" class="solve-input" placeholder="Nhập kết quả...">
+        </div>
+        <div class="feedback-msg" id="msg-c10"></div>
+        <div class="btn-center">
+            <button class="btn btn-primary" id="btn-c10" onclick="checkC10()">🏆 Chấm điểm!</button>
+        </div>
+    </div>
+
+    <!-- KẾT QUẢ -->
+    <div id="screen-result" class="screen result-screen">
+        <div class="result-title">🎉 Hoàn thành! 🎉</div>
+        <div class="result-info">
+            <span>👤 Họ tên: <b id="resName"></b></span>
+            <span>🏫 Lớp: <b id="resClass"></b></span>
+        </div>
+        <div class="score-circle">
+            <span id="resTotal"></span><span class="denom">/10</span>
+        </div>
+        <p class="result-sub">Số phần đúng ngay lần đầu: <b id="resPerfect"></b> / 7</p>
+        <div class="result-feedback" id="resFeedback"></div>
+        <div class="result-nav">
+            <a href="index.html" class="nav-btn" style="background:#FFE500;color:#000;">🏠 Về trang chủ</a>
+            <a href="de9.html" class="nav-btn" style="background:#2979FF;color:#fff;">📖 Đề tiếp theo →</a>
+        </div>
+    </div>
+
+</div>
+
+<script>
+function shuffle(arr){const a=[...arr];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+function toLabel(i){return String.fromCharCode(65+i);}
+function norm(s){return s.trim().toLowerCase().replace(/\s+/g,' ');}
+
+const state={
+    scores:{p1:0,c5:0,c6:0,c7:0,c8:0,c9:0,c10:0},
+    isFirstAttempt:{p1:true,c5:true,c6:true,c7:true,c8:true,c9:true,c10:true},
+    perfectCount:0
+};
+
+const P1_ITEMS=[
+    {id:'q1a',
+     text:'Câu 1a. (0,5đ) Số thập phân gồm năm đơn vị, ba phần mười và 7 phần nghìn viết là:',
+     options:['5,37','5,307','5,370','5,037'],
+     correctText:'5,307',score:0.5},
+    {id:'q1b',
+     text:'Câu 1b. (0,5đ) Chữ số 4 trong số thập phân 7,049 có giá trị là:',
+     options:['4 phần mười','4 phần trăm','4 phần nghìn','4 đơn vị'],
+     correctText:'4 phần trăm',score:0.5},
+    {id:'q2a',
+     text:'Câu 2a. (0,5đ) Lan bắt đầu làm bài lúc 8 giờ kém 5 phút. Lan làm xong lúc 9 giờ 10 phút. Lan làm bài hết bao nhiêu phút?',
+     options:['65 phút','70 phút','75 phút','80 phút'],
+     correctText:'75 phút',score:0.5},
+    {id:'q2b',
+     text:'Câu 2b. (0,5đ) Viết 32% dưới dạng phân số thập phân là:',
+     options:['32','32/10','32/100','32/1000'],
+     correctText:'32/100',score:0.5},
+    {id:'q3',
+     text:'Câu 3. (1đ) Chu vi một hình tròn là 18,84 dm. Diện tích hình tròn đó là:',
+     options:['9,42 dm²','18,84 dm²','28,26 dm²','56,52 dm²'],
+     correctText:'28,26 dm²',score:1},
+    {id:'q4',
+     text:'Câu 4. (1đ) Một người đi xe đạp với vận tốc 15km/giờ. Thời gian để đi được 22,5km là:',
+     options:['1 giờ','1 giờ 15 phút','1 giờ 30 phút','2 giờ'],
+     correctText:'1 giờ 30 phút',score:1},
+];
+
+function buildP1(){
+    const body=document.getElementById('p1-body');body.innerHTML='';
+    P1_ITEMS.forEach(item=>{
+        const shuffled=shuffle([...item.options]);
+        const div=document.createElement('div');div.className='mcq-item';
+        let html=`<p>${item.text}</p><div class="mcq-options">`;
+        shuffled.forEach((opt,i)=>{
+            html+=`<label><input type="radio" name="${item.id}" value="${opt}"> ${toLabel(i)}. ${opt}</label>`;
+        });
+        html+='</div>';div.innerHTML=html;body.appendChild(div);
+    });
+}
+
+const STEPS=['p1','c5','c6','c7','c8','c9','c10'];
+function updateProgress(activeQ){
+    document.getElementById('progress-strip').style.display='flex';
+    const idx=STEPS.indexOf(activeQ);
+    STEPS.forEach((q,i)=>{
+        const el=document.getElementById('ps'+(i+1));
+        el.classList.remove('done','active');
+        if(i<idx)el.classList.add('done');
+        if(i===idx)el.classList.add('active');
+    });
+}
+function showScreen(id){
+    document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    window.scrollTo({top:0,behavior:'smooth'});
+    const qMap={'screen-p1':'p1','screen-c5':'c5','screen-c6':'c6','screen-c7':'c7','screen-c8':'c8','screen-c9':'c9','screen-c10':'c10'};
+    if(qMap[id])updateProgress(qMap[id]);
+    if(id==='screen-result')document.getElementById('progress-strip').style.display='none';
+}
+function startQuiz(){
+    const name=document.getElementById('studentName').value.trim();
+    const cls=document.getElementById('studentClass').value.trim();
+    if(!name){alert('Con hãy nhập Họ Tên nhé! 😊');return;}
+    if(!cls){alert('Con hãy nhập Lớp nhé! 😊');return;}
+    document.getElementById('resName').innerText=name;
+    document.getElementById('resClass').innerText=cls.toUpperCase();
+    buildP1();showScreen('screen-p1');
+}
+function showFeedback(q,ok,msg){
+    const box=document.getElementById('box-'+q);
+    if(box){box.classList.remove('correct','wrong');box.classList.add(ok?'correct':'wrong');}
+    const el=document.getElementById('msg-'+q);
+    if(el){el.className='feedback-msg '+(ok?'text-success':'text-danger');el.innerText=msg;}
+}
+function advanceBtn(btnId,label,nextFn){
+    const btn=document.getElementById(btnId);
+    btn.innerText=label;btn.classList.add('btn-success');btn.onclick=nextFn;
+}
+
+function checkP1(){
+    let score=0,answered=0;
+    P1_ITEMS.forEach(item=>{
+        const s=document.querySelector(`input[name="${item.id}"]:checked`);
+        if(s){answered++;if(s.value===item.correctText)score+=item.score;}
+    });
+    if(answered<P1_ITEMS.length){showFeedback('p1',false,`Chọn hết ${P1_ITEMS.length} câu nhé! (Đã chọn ${answered}) 📝`);return;}
+    if(state.isFirstAttempt.p1){state.scores.p1=score;if(score===4)state.perfectCount++;state.isFirstAttempt.p1=false;}
+    if(score===4){
+        showFeedback('p1',true,'🎉 Xuất sắc! Đúng hết 4/4!');
+        advanceBtn('btn-p1','Sang Câu 5 ➡️',()=>showScreen('screen-c5'));
+    } else {
+        showFeedback('p1',false,`Được ${score}/4 điểm — Kiểm tra lại nhé! 💪`);
+    }
+}
+
+function checkC5(){
+    const va=norm(document.getElementById('c5_a').value);
+    const vb=norm(document.getElementById('c5_b').value);
+    if(!va||!vb){showFeedback('c5',false,'Điền đủ cả 2 ô nhé! 📝');return;}
+    const okA=/3500000/.test(va.replace(/\s/g,''));
+    const okB=/\b12\b/.test(vb.replace(/\s/g,''));
+    const correct=(okA?1:0)+(okB?1:0);
+    if(state.isFirstAttempt.c5){state.scores.c5=correct*0.5;if(correct===2)state.perfectCount++;state.isFirstAttempt.c5=false;}
+    if(okA&&okB){
+        showFeedback('c5',true,'🎉 Chính xác! a) 3 500 000 m² · b) 12 phút');
+        advanceBtn('btn-c5','Sang Câu 6 ➡️',()=>showScreen('screen-c6'));
+    } else {
+        showFeedback('c5',false,`Đúng ${correct}/2 — Gợi ý: 1km²=1000000m² · 60giây=1phút 💡`);
+    }
+}
+
+function checkC6(){
+    const va=norm(document.getElementById('c6_a').value);
+    const vb=norm(document.getElementById('c6_b').value);
+    if(!va||!vb){showFeedback('c6',false,'Điền đủ cả 2 ô nhé! 📝');return;}
+    const okA=/8\s*(giờ|g|h)\s*0\s*(phút|p|ph)?/.test(va)||/^8$/.test(va.replace(/\s/g,''))||/8\s*(giờ|g|h)$/.test(va);
+    const okB=/1\s*(giờ|g|h)\s*0\s*(phút|p|ph)?/.test(vb)||/^1$/.test(vb.replace(/\s/g,''))||/1\s*(giờ|g|h)$/.test(vb);
+    const correct=(okA?1:0)+(okB?1:0);
+    if(state.isFirstAttempt.c6){state.scores.c6=correct*0.5;if(correct===2)state.perfectCount++;state.isFirstAttempt.c6=false;}
+    if(okA&&okB){
+        showFeedback('c6',true,'🎉 Chính xác! a) 8 giờ · b) 1 giờ');
+        advanceBtn('btn-c6','Sang Câu 7 ➡️',()=>showScreen('screen-c7'));
+    } else {
+        showFeedback('c6',false,`Đúng ${correct}/2 — Gợi ý: a) 4g25p×3=13g15p, trừ 5g15p · b) (2g30p+1g30p)÷4 💡`);
+    }
+}
+
+function checkC7(){
+    const va=norm(document.getElementById('c7_a').value);
+    const vb=norm(document.getElementById('c7_b').value);
+    if(!va||!vb){showFeedback('c7',false,'Điền đủ cả 2 ô nhé! 📝');return;}
+    const okA=/375000/.test(va.replace(/\s/g,''));
+    const okB=/\b355\b/.test(vb.replace(/\s/g,''));
+    const correct=(okA?1:0)+(okB?1:0);
+    if(state.isFirstAttempt.c7){state.scores.c7=correct*0.5;if(correct===2)state.perfectCount++;state.isFirstAttempt.c7=false;}
+    if(okA&&okB){
+        showFeedback('c7',true,'🎉 Chính xác! a) 375 000 lít · b) 355 m²');
+        advanceBtn('btn-c7','Sang Câu 8 ➡️',()=>showScreen('screen-c8'));
+    } else {
+        showFeedback('c7',false,`Đúng ${correct}/2 — Gợi ý: a) V=25×10×1,5=375m³=375000lít · b) đáy+4thành 💡`);
+    }
+}
+
+function checkC8(){
+    const va=norm(document.getElementById('c8_a').value);
+    const vb=norm(document.getElementById('c8_b').value);
+    if(!va||!vb){showFeedback('c8',false,'Điền đủ cả 2 ô nhé! 📝');return;}
+    const okA=/\b120\b/.test(va.replace(/\s/g,''));
+    const okB=/\b85\b/.test(vb.replace(/\s/g,''));
+    const correct=(okA?1:0)+(okB?1:0);
+    if(state.isFirstAttempt.c8){state.scores.c8=correct*0.5;if(correct===2)state.perfectCount++;state.isFirstAttempt.c8=false;}
+    if(okA&&okB){
+        showFeedback('c8',true,'🎉 Chính xác! a) 120 học sinh · b) 85%');
+        advanceBtn('btn-c8','Sang Câu 9 ➡️',()=>showScreen('screen-c9'));
+    } else {
+        showFeedback('c8',false,`Đúng ${correct}/2 — Gợi ý: a) 800×15÷100 · b) 100%−15% 💡`);
+    }
+}
+
+function checkC9(){
+    const va=norm(document.getElementById('c9_a').value);
+    const vb=norm(document.getElementById('c9_b').value);
+    if(!va||!vb){showFeedback('c9',false,'Điền đủ cả 2 ô nhé! 📝');return;}
+    const okA=/\b3\b/.test(va.replace(/\s/g,''));
+    const okB=/\b45\b/.test(vb.replace(/\s/g,''));
+    const correct=(okA?1:0)+(okB?1:0);
+    if(state.isFirstAttempt.c9){state.scores.c9=correct*0.5;if(correct===2)state.perfectCount++;state.isFirstAttempt.c9=false;}
+    if(okA&&okB){
+        showFeedback('c9',true,'🎉 Chính xác! a) 3 giờ · b) 45 giờ');
+        advanceBtn('btn-c9','Sang Câu 10 ➡️',()=>showScreen('screen-c10'));
+    } else {
+        showFeedback('c9',false,`Đúng ${correct}/2 — Gợi ý: a) 180÷(32+28) · b) 180÷(32−28) 💡`);
+    }
+}
+
+function checkC10(){
+    const v=norm(document.getElementById('c10_kq').value);
+    if(!v){showFeedback('c10',false,'Nhập kết quả vào nhé! 📝');return;}
+    const ok=/\b2\b/.test(v.replace(/\s/g,''));
+    if(state.isFirstAttempt.c10){state.scores.c10=ok?1:0;if(ok)state.perfectCount++;state.isFirstAttempt.c10=false;}
+    if(ok){
+        showFeedback('c10',true,'🎉 Chính xác! (48+24)÷36 = 72÷36 = 2');
+        setTimeout(finishQuiz,900);
+    } else {
+        showFeedback('c10',false,'Sai rồi — Gợi ý: 48:36 + 24:36 = (48+24):36 = ? 💡');
+    }
+}
+
+function finishQuiz(){
+    let total=Object.values(state.scores).reduce((a,b)=>a+b,0);
+    total=Math.round(total*10)/10;total=Math.min(total,10);
+    const pct=(total/10)*100;
+    document.getElementById('resTotal').innerText=total;
+    document.getElementById('resPerfect').innerText=state.perfectCount;
+    const fb=document.getElementById('resFeedback');
+    if(pct>=90){fb.innerText='⭐ Xuất sắc!';fb.style.background='#FFE500';fb.style.color='#000';}
+    else if(pct>=70){fb.innerText='👍 Tốt lắm!';fb.style.background='#00C853';fb.style.color='#fff';}
+    else if(pct>=50){fb.innerText='💪 Cần luyện thêm!';fb.style.background='#FF6D00';fb.style.color='#fff';}
+    else{fb.innerText='📖 Xem lại bài nhé!';fb.style.background='#FF1744';fb.style.color='#fff';}
+    showScreen('screen-result');
+}
+</script>
+</body>
+</html>
